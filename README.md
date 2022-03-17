@@ -8,20 +8,21 @@ Install the plugin remote - wsl
 (this allows you to use (code .) in terminal to open up vs code through wsl)
 
 # Install django/postgres/dependencies
-Step 1: install python (sudo apt-get install python3.8)
-Step 2: install Postgres (sudo apt-get install postgresql-12 )
-(https://help.ubuntu.com/community/PostgreSQL
-https://stackoverflow.com/questions/5394331/how-to-set-up-a-postgresql-database-in-django)
-Step 2.5: create database chessdb (createdb chessdb)
-(sudo service postgresql start)
-Step 3: install python3-pip (sudo apt install python3-pip)
-Step 4: install python venv (sudo apt install python3.8-venv)
-Step 4.5: create virtual environment (python3 -m venv env1)
-(from this point on use the venv $ source env1/bin/activate use deactivate to leave)
-Step 5 install requirements.txt using pip (python -m pip install -r requirements.txt)
-    (dependency list, dont worry about these)
-    Django (pip install Django)
-    psycopg2 package (pip install psycopg2-binary)
+
+Step 1: install python (sudo apt-get install python3.8)\
+Step 2: install Postgres (sudo apt-get install postgresql-12)\
+(https://help.ubuntu.com/community/PostgreSQL\
+https://stackoverflow.com/questions/5394331/how-to-set-up-a-postgresql-database-in-django)\
+Step 2.5: create database chessdb (createdb chessdb)\
+(sudo service postgresql start)\
+Step 3: install python3-pip (sudo apt install python3-pip)\
+Step 4: install python venv (sudo apt install python3.8-venv)\
+Step 4.5: create virtual environment (python3 -m venv env1)\
+(from this point on use the venv $ source env1/bin/activate use deactivate to leave)\
+Step 5 install requirements.txt using pip (python -m pip install -r requirements.txt)\
+    (dependency list, dont worry about these)\
+    Django (pip install Django)\
+    psycopg2 package (pip install psycopg2-binary)\
     Daphne (pip install daphne)
 
 # Write tutorial app 1-6
