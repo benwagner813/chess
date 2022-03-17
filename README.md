@@ -12,7 +12,7 @@ Install the plugin remote - wsl
 Step 1: install python (sudo apt-get install python3.8)\
 Step 2: install Postgres (sudo apt-get install postgresql-12)\
 (https://help.ubuntu.com/community/PostgreSQL\
-https://stackoverflow.com/questions/5394331/how-to-set-up-a-postgresql-database-in-django)\
+https://stackoverflow.com/questions/5394331/how-to-set-up-a-postgresql-database-in-django) \
 Step 2.5: create database chessdb (createdb chessdb)\
 (sudo service postgresql start)\
 Step 3: install python3-pip (sudo apt install python3-pip)\
