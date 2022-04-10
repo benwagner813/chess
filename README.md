@@ -27,3 +27,8 @@ Step 5 install requirements.txt using pip (python -m pip install -r requirements
 
 # Write tutorial app 1-6
 https://docs.djangoproject.com/en/4.0/intro/tutorial01/
+
+# redis?
+Do we need redis for django channels?
+https://github.com/danidee10/channels_postgres
+(docker run -p 6379:6379 -d redis:5)
