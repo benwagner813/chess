@@ -32,3 +32,8 @@ https://docs.djangoproject.com/en/4.0/intro/tutorial01/
 Do we need redis for django channels?
 https://github.com/danidee10/channels_postgres
 (docker run -p 6379:6379 -d redis:5)
+
+Changes to setting.py:
+1- Change CHANNEL_LAYERS config
+2- Add account to apps
+3- Change username and password
