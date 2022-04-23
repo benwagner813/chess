@@ -1,14 +1,48 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
     <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'account/styles.css' %}">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;subset=latin" rel="stylesheet">
 </head>
 <body>
-    <h1>
-        Login!!!
-    </h1>
-    <form>
-        <label>Username:</label>
-    </form>
+    <div class="main">
+        <div class="formDiv">
+                <div class="titleDiv">
+                    <h1>
+                        Login
+                    </h1>
+                </div>
+                <!-- TODO: FIX THE LINE BELOW -->
+                <form action="{% url 'account:registerRequest'%}" method="post" style="text-align:left">
+                    {% csrf_token %}
+                    <div class="formElement">
+                        <div class="labelDiv">
+                            <label>Username:</label>
+                        </div>
+                        <div class="inputDiv">
+                            <input type="text" name="username" required />
+                        </div>
+                    </div>
+                    <div class="formElement">
+                        <div class="labelDiv">
+                            <label>Password:</label>
+                        </div>
+                        <div class="inputDiv">
+                            <input type="password" name="password" required/>
+                        </div>
+                    </div>
+                    <div class="submitDiv">
+                        <input type="submit" value='Submit'/>
+                    </div>
+                    <div class="linkDiv">
+                        <div class="textDiv">
+                            <p>Need an account?</p> <a href="/account/register">Click here</a>
+                        </div>
+                    </div>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

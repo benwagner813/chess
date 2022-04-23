@@ -2,15 +2,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Login</title>
+    <title>Register</title>
     <link rel="stylesheet" type="text/css" href="{% static 'account/styles.css' %}">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;subset=latin" rel="stylesheet">
 </head>
 <body>
 <div class="main">
     <div class="formDiv">
             <div class="titleDiv">
                 <h1>
-                    Create an account
+                    Register
                 </h1>
             </div>
             <form action="{% url 'account:registerRequest'%}" method="post" style="text-align:left">
@@ -20,7 +21,7 @@
                         <label>Username:</label>
                     </div>
                     <div class="inputDiv">
-                        <input type="text" name="username" required />
+                        <input type="text" name="username" required/>
                     </div>
                 </div>
                 <div class="formElement">
@@ -57,6 +58,11 @@
                 </div>
                 <div class="submitDiv">
                     <input type="submit" value='Submit'/>
+                </div>
+                <div class="linkDiv">
+                    <div class="textDiv">
+                        <p>Already have an account?</p> <a href="/account/login">Click here</a>
+                    </div>
                 </div>
         </form>
     </div>

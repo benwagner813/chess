@@ -1,36 +1,79 @@
 * {
- font-family: sans-serif;
- color: rgb(255, 255, 255);
+    font-family: 'open sans',arial,sans-serif;
+    font-weight: normal;
+    color: rgb(255, 255, 255, .90);
+    letter-spacing: 1px;
 }
 
 body {
-    background-color: rgb(43, 42, 51);
+    background-color: rgb(18, 18, 18);
+}
+
+.main {
+    display: flex;
+    margin-top: 50px;
+}
+
+.formDiv {
+    margin: auto;
+    background-color: rgb(255, 255, 255, .07);
+    padding: 25px;
+    padding-top: 0px;
+    box-shadow: 3px 3px 3px rgb(255, 255, 255, .03);
+    width: 440px;
+}
+
+.titleDiv {
+    text-align: center;
+}
+
+h1 {
+    font-size: 45px;
 }
 
 .formElement {
-    padding-top: 7px;
-    padding-bottom: 7px;
+    padding-bottom: 24px;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 }
 
 .labelDiv {
-    text-align: left;
+    margin: auto;
+    margin-bottom: 3px;
+    width: 80%;
+}
+
+label {
+    font-size: 20px;
 }
 
 .inputDiv {
-    margin-left: auto;
-    padding-left: 25px;
+    margin: auto;
+    width: 80%;
 }
 
 input[type=text], input[type=password] {
     background: transparent;
-    border-top-style: hidden;
-    border-right-style: hidden;
-    border-left-style: hidden;
+    border-top-style: solid;
+    border-right-style: solid;
+    border-left-style: solid;
     width: 100%;
-    font-size: 25px;
+    font-size: 20px;
     padding: 2px;
+    background-color: rgb(255, 255, 255, .10);
+    border-color: rgb(255, 255, 255, .30);
+    box-shadow: 1px 1px 1px rgb(255, 255, 255, .09);
+    border-radius: 5px;
+}
+
+input[type=text]:hover, input[type=password]:hover {
+    background-color: rgb(255, 255, 255, .20);
+    border-color: rgb(255, 255, 255, .60);
+}
+
+input[type=text]:focus, input[type=password]:focus {
+    background-color: rgb(255, 255, 255, .20);
+    border-color: rgb(255, 255, 255, .60);
 }
 
 .submitDiv {
@@ -39,47 +82,39 @@ input[type=text], input[type=password] {
 
 input[type=submit] {
     margin: auto;
-    width: 70%;
+    width: 50%;
     font-size: 25px;
     padding: 2px;
-    margin-top: 20px;
+    margin-top: 28px;
     background-color: rgb(50, 168, 82);
     border: none;
     border-radius: 7px;
 }
 
 input[type=submit]:hover {
-    margin: auto;
-    width: 70%;
-    font-size: 25px;
-    padding: 2px;
-    margin-top: 20px;
     background-color: rgb(69, 182, 99);
-    border: none;
-    border-radius: 7px;
     cursor: pointer;
 }
 
-label {
-    font-size: 25px;
-}
-
-.main {
+.linkDiv {
     display: flex;
-}
-
-.formDiv {
-    margin: auto;
-    background-color: rgb(67, 64, 78);
-    padding: 25px;
-    padding-top: 0px;
-    box-shadow: 3px 3px 3px rgb(32, 31, 37);
-}
-
-.titleDiv {
+    flex-direction: row;
+    margin-top: 15px;
     text-align: center;
 }
 
-h1 {
-    font-size: 50px;
+.textDiv {
+    margin: auto;
+    display: flex;
+    flex-direction: row;
 }
+
+a {
+    align-self: center;
+    margin-left: 5px;
+    color: rgb(214, 108, 69);
+}
+
+
+
+
