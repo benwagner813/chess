@@ -1,0 +1,46 @@
+{% extends "App.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<body>
+    <div class="main">
+        <div class="formDiv">
+                <div class="titleDiv">
+                    <h1>
+                        Login
+                    </h1>
+                </div>
+                <!-- TODO: FIX THE LINE BELOW -->
+                <form method="post" style="text-align:left">
+                    {% csrf_token %}
+                    <div class="formElement">
+                        <div class="labelDiv">
+                            <label>Username:</label>
+                        </div>
+                        <div class="inputDiv">
+                            {{ form.username }}                            
+                        </div>
+                    </div>
+                    <div class="formElement">
+                        <div class="labelDiv">
+                            <label>Password:</label>
+                        </div>
+                        <div class="inputDiv">
+                            {{ form.password }}
+                            {{ form.non_field_errors }}
+                        </div>
+                    </div>
+                    <div class="submitDiv">
+                        <input type="submit" value='Submit'/>
+                    </div>
+                    <div class="linkDiv">
+                        <div class="textDiv">
+                            <p>Need an account?</p> <a href="/account/register">Click here</a>
+                        </div>
+                    </div>
+            </form>
+        </div>
+    </div>
+</body>
+{% endblock %}

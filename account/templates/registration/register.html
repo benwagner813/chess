@@ -1,26 +1,25 @@
-{% load static %}
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Login</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'account/styles.css' %}">
-</head>
+{% extends "App.html" %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
 <body>
 <div class="main">
     <div class="formDiv">
             <div class="titleDiv">
                 <h1>
-                    Create an account
+                    Register
                 </h1>
             </div>
-            <form action="{% url 'account:registerRequest'%}" method="post" style="text-align:left">
+            <form method="post" style="text-align:left">
                 {% csrf_token %}
                 <div class="formElement">
                     <div class="labelDiv">
                         <label>Username:</label>
                     </div>
                     <div class="inputDiv">
-                        <input type="text" name="username" required />
+                        {{ form.username }}
+                        {{ form.username.errors }}
                     </div>
                 </div>
                 <div class="formElement">
@@ -28,7 +27,17 @@
                         <label>Password:</label>
                     </div>
                     <div class="inputDiv">
-                        <input type="password" name="password" required/>
+                        {{ form.password1 }}
+                        {{ form.password1.errors }}
+                    </div>
+                </div>
+                <div class="formElement">
+                    <div class="labelDiv">
+                        <label>Confirm Password:</label>
+                    </div>
+                    <div class="inputDiv">
+                        {{ form.password2 }}
+                        {{ form.password2.errors }}
                     </div>
                 </div>
                 <div class="formElement">
@@ -36,7 +45,8 @@
                         <label>First Name:</label>
                     </div>
                     <div class="inputDiv">
-                        <input type="text" name="firstName" required/>
+                        {{ form.first_name }}
+                        {{ form.first_name.errors }}
                     </div>
                 </div>
                 <div class="formElement">
@@ -44,7 +54,8 @@
                         <label>Last Name:</label>
                     </div>
                     <div class="inputDiv">
-                        <input type="text" name="lastName" required/>
+                        {{ form.last_name }}
+                        {{ form.last_name.errors }}
                     </div>
                 </div>
                 <div class="formElement">
@@ -52,14 +63,20 @@
                         <label>Email:</label>
                     </div>
                     <div class="inputDiv">
-                        <input type="text" name="email" required/>
+                        {{ form.email }}
+                        {{ form.email.errors }}
                     </div>
                 </div>
                 <div class="submitDiv">
                     <input type="submit" value='Submit'/>
                 </div>
+                <div class="linkDiv">
+                    <div class="textDiv">
+                        <p>Already have an account?</p> <a href="/account/login">Click here</a>
+                    </div>
+                </div>
         </form>
     </div>
 </div>
 </body>
-</html>
+{% endblock %}

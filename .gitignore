@@ -1,1 +1,6 @@
 CoolChess/settings.py
+chat/__pycache__/**
+account/__pycache__/**
+CoolChess/__pycache__/**
+account/migrations/__pycache__/**
+chat/migrations/__pycache__/**
