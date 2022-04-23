@@ -21,6 +21,7 @@ body {
     padding-top: 0px;
     box-shadow: 3px 3px 3px rgb(255, 255, 255, .03);
     width: 440px;
+    border-radius: 5px;
 }
 
 .titleDiv {
@@ -52,7 +53,7 @@ label {
     width: 80%;
 }
 
-input[type=text], input[type=password] {
+input[type=text], input[type=password], input[type=email] {
     background: transparent;
     border-top-style: solid;
     border-right-style: solid;
@@ -66,12 +67,12 @@ input[type=text], input[type=password] {
     border-radius: 5px;
 }
 
-input[type=text]:hover, input[type=password]:hover {
+input[type=text]:hover, input[type=password]:hover, input[type=email]:hover {
     background-color: rgb(255, 255, 255, .20);
     border-color: rgb(255, 255, 255, .60);
 }
 
-input[type=text]:focus, input[type=password]:focus {
+input[type=text]:focus, input[type=password]:focus, input[type=email]:focus {
     background-color: rgb(255, 255, 255, .20);
     border-color: rgb(255, 255, 255, .60);
 }
@@ -113,6 +114,18 @@ a {
     align-self: center;
     margin-left: 5px;
     color: rgb(214, 108, 69);
+}
+
+.errorlist {
+    display: flex;
+    padding: 0;
+    margin: 0;
+    margin-top: 3px;
+}
+
+li {
+    list-style: none;
+    color: rgb(209, 85, 85);
 }
 
 

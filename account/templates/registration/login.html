@@ -1,11 +1,8 @@
-{% load static %}
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Login</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'account/styles.css' %}">
-    <link href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;subset=latin" rel="stylesheet">
-</head>
+{% extends "App.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
 <body>
     <div class="main">
         <div class="formDiv">
@@ -15,14 +12,14 @@
                     </h1>
                 </div>
                 <!-- TODO: FIX THE LINE BELOW -->
-                <form action="{% url 'account:registerRequest'%}" method="post" style="text-align:left">
+                <form method="post" style="text-align:left">
                     {% csrf_token %}
                     <div class="formElement">
                         <div class="labelDiv">
                             <label>Username:</label>
                         </div>
                         <div class="inputDiv">
-                            <input type="text" name="username" required />
+                            {{ form.username }}                            
                         </div>
                     </div>
                     <div class="formElement">
@@ -30,7 +27,8 @@
                             <label>Password:</label>
                         </div>
                         <div class="inputDiv">
-                            <input type="password" name="password" required/>
+                            {{ form.password }}
+                            {{ form.non_field_errors }}
                         </div>
                     </div>
                     <div class="submitDiv">
@@ -45,4 +43,4 @@
         </div>
     </div>
 </body>
-</html>
+{% endblock %}
