@@ -1,13 +1,31 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8"/>
-    <title>Chat Rooms</title>
-</head>
+{% extends 'App.html' %}
+
+{% block title %}Chart{% endblock %}
+
+{% block content %}
+{% include "nav.html" %}
+
+<script>
+    const lobbySocket = new WebSocket(
+            'ws://'
+            + window.location.host
+            + '/ws/chat/'
+    );
+
+    lobbySocket.onmessage = function(e) {
+        const data = JSON.parse(e.data);
+        document.querySelector('.theP').value += (data.name);
+    };
+</script>
+
 <body>
-    What chat room would you like to enter?<br>
-    <input id="room-name-input" type="text" size="100"><br>
-    <input id="room-name-submit" type="button" value="Enter">
+    <div style="width: 400px">
+        What chat room would you like to enter?<br>
+        <input id="room-name-input" type="text" size="50"><br>
+        <input class="enterBtn" id="room-name-submit" type="button" value="Enter">
+    </div>  
+
+    <p class="theP"></p>
 
     <script>
         document.querySelector('#room-name-input').focus();
@@ -23,4 +41,5 @@
         };
     </script>
 </body>
-</html>
+
+{% endblock %}

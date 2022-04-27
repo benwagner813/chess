@@ -1,3 +1,6 @@
+@import "navstyles.css";
+@import "chat.css";
+
 * {
     font-family: 'open sans',arial,sans-serif;
     font-weight: normal;
@@ -7,6 +10,7 @@
 
 body {
     background-color: rgb(18, 18, 18);
+    margin: 0;
 }
 
 .main {
@@ -110,10 +114,15 @@ input[type=submit]:hover {
     flex-direction: row;
 }
 
-a {
+.linkA {
     align-self: center;
     margin-left: 5px;
     color: rgb(214, 108, 69);
+    text-decoration: none;
+}
+
+.linkA:hover {
+    text-decoration: underline;
 }
 
 .errorlist {
@@ -127,6 +136,8 @@ li {
     list-style: none;
     color: rgb(209, 85, 85);
 }
+
+
 
 
 
