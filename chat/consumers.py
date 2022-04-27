@@ -16,8 +16,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
         await self.channel_layer.group_send(
             "Lobby",
             {
-                'type': 'lobby_message',
-                'name': self.room_group_name
+                'type': 'room_create',
+                'name': self.room_name
             }
         )
 
@@ -25,6 +25,13 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
     async def disconnect(self, close_code):
         # Leave room group
+        await self.channel_layer.group_send(
+            "Lobby",
+            {
+                'type': 'room_delete',
+                'name': self.room_name
+            }
+        )
         await self.channel_layer.group_discard(
             self.room_group_name,
             self.channel_name
@@ -67,7 +74,7 @@ class RoomConsumer(AsyncWebsocketConsumer):
             "Lobby",
             self.channel_name
         )
-
+        self.room_list = {}
         await self.accept()
 
     async def disconnect(self, code):
@@ -76,8 +83,25 @@ class RoomConsumer(AsyncWebsocketConsumer):
             self.channel_name
         )
 
-    async def lobby_message(self, event):
-        lobby = event['name']
+    async def room_create(self, event):
+        room = event['name']
+        if room in self.room_list.keys():
+            self.room_list[room] += 1
+        else:
+            self.room_list[room] = 1
+        
         await self.send(text_data=json.dumps({
-            'name': lobby
+            'list': self.room_list
+        }))
+    
+    async def room_delete(self, event):
+        room = event['name']
+        if room in self.room_list.keys():
+            if self.room_list[room] > 1:
+                self.room_list[room] -= 1
+            elif self.room_list[room] == 1:
+                self.room_list.pop(room)
+        
+        await self.send(text_data=json.dumps({
+            'list': self.room_list
         }))
