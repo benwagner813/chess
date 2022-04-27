@@ -14,7 +14,14 @@
 
     lobbySocket.onmessage = function(e) {
         const data = JSON.parse(e.data);
-        document.querySelector('.theP').value += (data.name);
+        let listObj = data.list;
+        let htmlUpdate = "";
+        const listUL = document.querySelector(".ListUL");
+
+        for(const[key,value] of Object.entries(listObj)){
+            htmlUpdate += `<li><a href="${key}">${key} </a> <p>${value}</p></li>`
+        }
+        listUL.innerHTML = htmlUpdate;
     };
 </script>
 
@@ -25,7 +32,7 @@
         <input class="enterBtn" id="room-name-submit" type="button" value="Enter">
     </div>  
 
-    <p class="theP"></p>
+    <div class="ListDiv"><ul class="ListUL"></ul></div>
 
     <script>
         document.querySelector('#room-name-input').focus();
