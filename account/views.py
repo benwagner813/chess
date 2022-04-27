@@ -18,21 +18,8 @@ def register(request):
             print("INvlaie fgorme.")
             print(form.errors)
             return render(request, 'registration/register.html', {'form':form})
-        messages.error(request, "Registration Failed.")
     form = RegistrationForm()
     return render(request = request, template_name = "registration/register.html", context={"form": form})
 
-
-
-
-# def registerRequest(request):
-#     username = request.POST['username']
-#     password = request.POST['password']
-#     firstName = request.POST['firstName']
-#     lastName = request.POST['lastName']
-#     email = request.POST['email']
-#     user = User.objects.create_user(username, email, password)
-#     user.first_name = firstName
-#     user.last_name = lastName
-#     user.save()
-#     return HttpResponseRedirect('/account/login')
+def home(request):
+    return render(request, "home.html", {})
