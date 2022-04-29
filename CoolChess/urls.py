@@ -23,5 +23,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('chat/', include('chat.urls')),
     path('account/', include('account.urls')),
-    path('', views.home, name='home')
+    path('', views.home, name='home'),
+    path('tictactoe/', include('tictactoe.urls'))
 ]

@@ -1,0 +1,19 @@
+{% extends "App.html" %}
+
+{% block title %}Tic Tac Toe Lobby{% endblock %}
+
+{% block content %}
+{% include "nav.html" %}
+<body>
+    <div class="main">
+        <h1>Tic Tac Toe Lobby</h1>
+    </div>
+</body>
+
+<script>
+const ws = new WebSocket('ws://'
+                        + window.location.host
+                        + '/ws/tictactoe/lobby')
+
+</script>
+{% endblock %}

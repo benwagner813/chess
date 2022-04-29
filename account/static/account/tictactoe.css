@@ -1,0 +1,41 @@
+.TTTtitle {
+    text-align: center;
+    color: rgb(255, 255, 255, .90);
+    text-decoration: underline;
+    text-decoration-color: #d66c45;
+    text-decoration-thickness: 3px;
+    text-underline-offset: 3px;
+}
+
+.TTTcontainer {
+    display: flex;
+}
+
+.TTTboardDiv {
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    border-style: solid;
+    border-color: rgba(255, 255, 255, .30);
+}
+
+.TTTcolumn {
+    display: flex;
+    flex-direction: column;
+}
+
+.TTTbox {
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgba(255, 255, 255, .30);
+    background-color: rgba(255, 255, 255, .10);
+    padding: 10px;
+    width: 150px;
+    height: 150px;
+}
+
+.TTTbox:hover {
+    border-color: rgba(255, 255, 255, .35);
+    background-color: rgba(255, 255, 255, .15);
+    cursor: pointer;
+}
