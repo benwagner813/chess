@@ -1,5 +1,8 @@
 import json
+from textwrap import fill
+from .models import Game
 from channels.generic.websocket import AsyncWebsocketConsumer
+from channels.db import database_sync_to_async
 
 class TTTConsumer(AsyncWebsocketConsumer):
     async def connect(self):
@@ -13,7 +16,19 @@ class TTTConsumer(AsyncWebsocketConsumer):
             self.channel_name
         )
 
-        await self.accept()
+        await database_sync_to_async(self.dbCalls)()
+        self.accept()
+
+    def dbCalls(self):
+        game = Game.objects.get(pk=self.game_id)
+
+        if (game.player_one == None):
+            game.player_one = self.user.id
+            game.save()
+            
+        elif (game.player_two == None):
+            game.player_two = self.user.id
+            game.save()
 
     async def disconnect(self, code):
         pass

@@ -5,16 +5,25 @@
     flex-direction: row;
 }
 
+.logoDiv {
+    display: flex;
+    flex-direction: row;
+    padding-right: 35px;
+}
+
+.logoA {
+    display: flex;
+    padding-right: 5px;
+    text-decoration: none;
+}
+
 .logoPathsvg {
     fill-rule:#d66c45;
 }
 
 .navTitle {
     margin: 0;
-}
-
-.navTitleDiv {
-    padding-right: 50px;
+    text-decoration: none;
 }
 
 .navItemDiv {
@@ -44,6 +53,7 @@
     align-items: center;
 }
 
+/* Login link button styles */
 .loginLink {
     display: block;
     height: 40px;
@@ -90,6 +100,7 @@
     color: rgb(255, 255, 255, .75);
 }
 
+/* Register link button styles */
 .registerLink {
     display: inline-block;
     position: relative;
@@ -117,6 +128,7 @@
     transform-origin: bottom left;
 }
 
+/* Logout link button styles */
 .logoutLink {
     display: inline-block;
     position: relative;
