@@ -14,13 +14,14 @@
     </div>
 
     <div>
-        <h3>Player 1 - {{player_one_UN}}</h3>
-        <h3>Player 2 - {{player_two_UN}}</h3>
+        <h3 class="player1"> Player 1 - {{player_one_UN}}</h3>
+        <h3 class="player2"> Player 2 - {{player_two_UN}}</h3>
     </div>
 </body>
 
 {{ game_id|json_script:"game-id" }}
 <script>
+    //creates the websocket and receives messages
     const gameId = JSON.parse(document.getElementById('game-id').textContent);
 
     const ws = new WebSocket('ws://'
@@ -32,9 +33,19 @@
     console.log('Hello ' + gameId)
 
     document.querySelector('.TTTtitle').append(' - ' + gameId);
-</script>
 
-<script>
+    ws.onmessage = function(e) {
+        const data = JSON.parse(e.data);
+        if(data.player == 1){
+            document.querySelector(".player1").innerHTML = ("Player 1 - " + data.username);
+        }
+        else if(data.player == 2){
+            document.querySelector(".player2").innerHTML = ("Player 2 - " + data.username);
+        }
+    }
+    
+
+    //creates the board and adds onclick function to each square
     boardContainer = document.querySelector('.TTTboardDiv')
     let htmlUpdate = "";
 
@@ -46,9 +57,8 @@
         htmlUpdate += '</div>'
     }
     boardContainer.innerHTML = htmlUpdate;
-</script>
 
-<script>
+    //This will display x or o on click
     function addX(x, y) {
         let id = x.toString() + y.toString()
         console.log(id);
