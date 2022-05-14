@@ -37,6 +37,8 @@ class Tictactoe:
         return False
 
     def create_board_state(self, moves):
+        if(len(moves) == 0):
+            return
         moves_list = moves.split(',')
         for count, move in enumerate(moves_list):
             c = int(move[0])
@@ -45,12 +47,12 @@ class Tictactoe:
                 self.grid[r][c] = 1
             else:
                 self.grid[r][c] = 2
-    
+
+    # lists available moves
     def list_moves(self):
         move_list = []
         for r in range(3):
             for c in range(3):
                 if(self.grid[r][c] == 0):
-                    move_list.append([r, c])
+                    move_list.append(str(r) + str(c))
         return move_list
-                

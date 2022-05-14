@@ -7,9 +7,9 @@ from channels.generic.websocket import AsyncWebsocketConsumer
 from channels.db import database_sync_to_async
 
 class TTTConsumer(AsyncWebsocketConsumer):
-    
+
     logging.basicConfig(level=logging.INFO)
-    
+
     async def connect(self):
         self.game_id = self.scope['url_route']['kwargs']['game_id']
 
@@ -31,6 +31,7 @@ class TTTConsumer(AsyncWebsocketConsumer):
                     "player" : self.player
                }
            )
+
            self.group_player = self.group_name + self.player
            await self.channel_layer.group_add(
                self.group_player,
@@ -44,7 +45,7 @@ class TTTConsumer(AsyncWebsocketConsumer):
           'username' : username,
           'player' : player
         }))
-    
+
     async def receive(self, text_data):
         if(self.player == '1'):
             player_group = self.group_name + '2'
@@ -57,29 +58,28 @@ class TTTConsumer(AsyncWebsocketConsumer):
         game = Tictactoe(moves)
         if(game.isWin()):
             pass
-        
-        move_list = game.list_moves()
-        logging.info(move_list)
-        
+
+        available_move_list = game.list_moves()
+        logging.info(available_move_list)
+
         await self.channel_layer.group_send(
             player_group,
             {
                 'type' : 'player_move',
                 'move' : move,
-                'move_list' : move_list
+                'available_move_list' : available_move_list
             }
         )
 
     async def player_move(self, event):#send the move to player websocket
         move = event['move']
-        move_list = event['move_list']
-        logging.info(move_list)
+        available_move_list = event['available_move_list']
+        logging.info(available_move_list)
         await self.send(text_data=json.dumps({
             'move': move,
-            'move_list' : move_list
+            'available_move_list' : available_move_list
         }))
         logging.info("The server sent the move down the websocket")
-
 
     def dbCalls(self): #dbCalls checks if the user matches the database and enters the user in the game if there is none
         game = Game.objects.get(pk=self.game_id)
@@ -105,7 +105,7 @@ class TTTConsumer(AsyncWebsocketConsumer):
 
         else:
             return False
-    
+
     @database_sync_to_async
     def add_move_db(self, move):
         game = Game.objects.get(pk=self.game_id)
