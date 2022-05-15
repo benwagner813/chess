@@ -1,0 +1,31 @@
+{% extends "App.html" %}
+
+{% load static %}
+
+{% block title %}Tic Tac Toe Game{% endblock %}
+
+{% block content %}
+{% include "nav.html" %}
+
+<body>
+    <div class="TTTtitleDiv">
+        <h1 class="TTTtitle">Game</h1>
+    </div>
+
+    <div class="TTTcontainer">
+        <div class="TTTboardDiv"></div>
+    </div>
+
+    <div>
+        <h3 class="player1"> Player 1 - {{player_one_UN}}</h3>
+        <h3 class="player2"> Player 2 - {{player_two_UN}}</h3>
+    </div>
+</body>
+
+{{ game_id|json_script:"game-id" }}
+{{ moves|json_script:"moves" }}
+{{ available_move_list|json_script:"available_move_list" }}
+<script src="{% static 'account/tictactoe.js' %}"></script>
+
+
+{% endblock %}

@@ -1,26 +1,28 @@
 <div class="navDiv">
     <div class="logoDiv">
         <a href="/" class="logoA">
-            <svg class="logoSVG" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.0" width="64" height="64" viewBox="0 0 504 504">
-                <path class="svgPath"
-                d="M 165,70 L 110,70 110,141 157,181 157,330 110,378 110,417 86,417 86,456 417,456 417,417 393,417 393,378 346,330 346,181 393,141 393,70 338,70 338,102 291,102 291,70 212,70 212,102 165,102 165,70 z"
-                style="fill:rgb(255, 255, 255, .90);stroke:#000000;stroke-width:16;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;" />
-                <path d="M 110,141 L 393,141" style="stroke:#000000;stroke-width:16;" />
-                <path d="M 157,181 L 346,181" style="stroke:#000000;stroke-width:16;" />
-                <path d="M 157,330 L 346,330" style="stroke:#000000;stroke-width:16;" />
-                <path d="M 110,378 L 393,378" style="stroke:#000000;stroke-width:16;" />
-                <path d="M 110,417 L 393,417" style="stroke:#000000;stroke-width:16;" />
-            </svg>
+            <div class="logoImgDiv">
+                <svg class="logoSVG" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.0" width="64" height="64" viewBox="0 0 504 504">
+                    <path class="svgPath"
+                    d="M 165,70 L 110,70 110,141 157,181 157,330 110,378 110,417 86,417 86,456 417,456 417,417 393,417 393,378 346,330 346,181 393,141 393,70 338,70 338,102 291,102 291,70 212,70 212,102 165,102 165,70 z"
+                    style="fill:rgb(255, 255, 255, .90);stroke:#000000;stroke-width:16;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;" />
+                    <path d="M 110,141 L 393,141" style="stroke:#000000;stroke-width:16;" />
+                    <path d="M 157,181 L 346,181" style="stroke:#000000;stroke-width:16;" />
+                    <path d="M 157,330 L 346,330" style="stroke:#000000;stroke-width:16;" />
+                    <path d="M 110,378 L 393,378" style="stroke:#000000;stroke-width:16;" />
+                    <path d="M 110,417 L 393,417" style="stroke:#000000;stroke-width:16;" />
+                </svg>
+            </div>
+            <div class="navTitleDiv">
+                <h1 class="navTitle">Chess</h1>
+            </div>
         </a>
-    </div>
-    <div class="navTitleDiv">
-        <h1 class="navTitle">Chess</h1>
     </div>
     <div class="navItemDiv">
         <a href="/chat" class="navItem">Chat</a>
     </div>
     <div class="navItemDiv">
-        <a href="/chat" class="navItem">Tic-Tac-Toe</a>
+        <a href="/tictactoe/lobby" class="navItem">Tic-Tac-Toe</a>
     </div>
     <div class="logContainerDiv">
 
@@ -35,7 +37,7 @@
         {% else %}
 
         <div class="loginLinkDiv">
-            <a href="/account/login" class="loginLink">Login</a>
+            <a href="/account/login" class="loginLink"><span>Login</span></a>
         </div>
         <div class="registerLinkDiv">
             <a href="/account/register" class="registerLink">Register</a>
@@ -46,10 +48,12 @@
 </div>
 
 <script>
-    document.querySelector('.logoSVG').onmouseover = function(e) {
+    document.querySelector('.logoA').onmouseover = function(e) {
         document.querySelector('.svgPath').style.fill = "rgb(214, 108, 69)"
+        document.querySelector('.navTitle').style.color = "rgb(214, 108, 69)"
     }
-    document.querySelector('.logoSVG').onmouseout = function(e) {
+    document.querySelector('.logoA').onmouseout = function(e) {
         document.querySelector('.svgPath').style.fill = "rgb(255, 255, 255, .90)"
+        document.querySelector('.navTitle').style.color = "rgb(255, 255, 255, .90)"
     }
 </script>
