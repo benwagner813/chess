@@ -23,12 +23,17 @@ class TTTConsumer(AsyncWebsocketConsumer):
 
         if(await database_sync_to_async(self.dbCalls)()): #If dbCalls returns True connect the user
            await self.accept()
+           game = await database_sync_to_async(self.getGame)()
+           moves = game.moves
+           elp = Tictactoe(moves)
+
            await self.channel_layer.group_send( #send to channel layer
                self.group_name,
                {
                     "type" : "send_user",
                     "user" : self.user.username,
-                    "player" : self.player
+                    "player" : self.player,
+                    "available_move_list": elp.list_moves()
                }
            )
 
@@ -37,13 +42,18 @@ class TTTConsumer(AsyncWebsocketConsumer):
                self.group_player,
                self.channel_name
            )
+
+    def getGame(self):
+        return Game.objects.get(pk=self.game_id)
     
     async def send_user(self, event): # send to websocket
         username = event['user']
         player = event['player']
+        available_move_list = event['available_move_list']
         await self.send(text_data=json.dumps({
           'username' : username,
-          'player' : player
+          'player' : player,
+          'available_move_list': available_move_list
         }))
 
     async def receive(self, text_data):

@@ -37,7 +37,7 @@ class Tictactoe:
         return False
 
     def create_board_state(self, moves):
-        if(len(moves) == 0):
+        if(moves == None or len(moves) == 0):
             return
         moves_list = moves.split(',')
         for count, move in enumerate(moves_list):

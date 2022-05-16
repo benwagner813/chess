@@ -14,12 +14,30 @@ console.log('Hello ' + gameId)
 
 document.querySelector('.TTTtitle').append(' - ' + gameId);
 
-ws.onopen = function(e) {
-    console.log(OG_available_move_list)
-    //TODO - CONTINUE WORKING ON "ONOPEN" FUNCTION
-}
+// ws.onopen = function(e) {
+//     console.log("OG Available move list - " + OG_available_move_list)
+//     for(let c=0; c < 3; c++) {
+//         for(let r=0; r < 3; r++) {
+//             if (OG_available_move_list.includes(c.toString() + r.toString())) {
+//                 console.log(c.toString() + r.toString())
+//                 const block = document.getElementById(c.toString() + r.toString())
+//                 block.addEventListener("click", addX)
+//                 block.r = c
+//                 block.c = r
+//             }
+//         }
+//     }
+// }
 
 ws.onmessage = function(e) {
+
+    // for(let c=0; c < 3; c++) {
+    //     for(let r=0; r < 3; r++) {
+    //         console.log("REMOVE IS BEING CALLED")
+    //         document.getElementById(c.toString() + r.toString()).removeEventListener("click", addX)
+    //     }
+    // }
+
     const data = JSON.parse(e.data);
     if(data.player == 1){
         document.querySelector(".player1").innerHTML = ("Player 1 - " + data.username);
@@ -28,17 +46,20 @@ ws.onmessage = function(e) {
         document.querySelector(".player2").innerHTML = ("Player 2 - " + data.username);
     }
 
-    const available_move_list = data.available_move_list
+    let available_move_list = data.available_move_list
 
-    console.log(data)
-
-    console.log(available_move_list)
+    console.log("Available move list - " + available_move_list)
     console.log("Type of available_move_list = " + typeof available_move_list)
 
-    for(let i=0; i < 3; i++) {
-        for(let j=0; j < 3; j++) {
-            if (available_move_list.includes(i.toString() + j.toString())) {
-                var clickable = document.getElementById(i.toString() + j.toString()).onclick = "addX(" + i.toString() + "," + i.toString() + ")"
+    console.log("OUTSIDE IS BEING CALLED")
+    for(let c=0; c < 3; c++) {
+        for(let r=0; r < 3; r++) {
+            if (available_move_list.includes(c.toString() + r.toString())) {
+                console.log("ADD IS BEING CALLED")
+                const block = document.getElementById(c.toString() + r.toString())
+                block.addEventListener("click", addX)
+                block.r = c
+                block.c = r
             }
         }
     }
@@ -49,19 +70,23 @@ ws.onmessage = function(e) {
 boardContainer = document.querySelector('.TTTboardDiv')
 let htmlUpdate = "";
 
-for(let i=0; i < 3; i++) {
+for(let c=0; c < 3; c++) {
     htmlUpdate += '<div class="TTTcolumn">'
-    for(let j=0; j < 3; j++) {
-        htmlUpdate += '<div class="TTTbox" id="' + i + j + '"></div>'
+    for(let r=0; r < 3; r++) {
+        htmlUpdate += '<div class="TTTbox" id="' + r + c + '"></div>'
     }
     htmlUpdate += '</div>'
 }
 boardContainer.innerHTML = htmlUpdate;
 
 //This will display x or o on click
-function addX(x, y) {
-    let id = x.toString() + y.toString()
-    console.log(id);
+function addX(event) {
+    let realR = event.currentTarget.r.toString()
+    let realC = event.currentTarget.c.toString()
+    let id = realR + realC
+    console.log("r = " + realR)
+    console.log("c = " + realC)
+    console.log("addX id = " + id);
     document.getElementById(id).innerHTML = 
     `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 460.775 460.775" style="enable-background:new 0 0 460.775 460.775;" xml:space="preserve">
         <path
