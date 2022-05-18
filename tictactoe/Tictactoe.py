@@ -36,13 +36,14 @@ class Tictactoe:
                 return True
         return False
 
+    #creates the board state based on the string of moves the game is initialized with
     def create_board_state(self, moves):
         if(moves == None or len(moves) == 0):
             return
         moves_list = moves.split(',')
         for count, move in enumerate(moves_list):
-            c = int(move[0])
-            r = int(move[1])    
+            c = int(move[1])
+            r = int(move[0])    
             if(count%2 == 0):
                 self.grid[r][c] = 1
             else:
