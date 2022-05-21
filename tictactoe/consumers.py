@@ -22,26 +22,37 @@ class TTTConsumer(AsyncWebsocketConsumer):
         )
 
         if(await database_sync_to_async(self.dbCalls)()): #If dbCalls returns True connect the user
-           await self.accept()
-           game = await database_sync_to_async(self.getGame)()
-           moves = game.moves
-           elp = Tictactoe(moves)
+            await self.accept()
+            game = await database_sync_to_async(self.getGame)()
+            moves = game.moves
+            tictactoe = Tictactoe(moves)
+            if(tictactoe.turn == int(self.player)):
+                self.turn = True
+            else:
+                self.turn = False
 
-           await self.channel_layer.group_send( #send to channel layer
+            await self.channel_layer.group_send( #send to channel layer
                self.group_name,
                {
                     "type" : "send_user",
                     "user" : self.user.username,
                     "player" : self.player,
-                    "available_move_list": elp.list_moves()
+                    "available_move_list": tictactoe.list_moves()
                }
-           )
+            )
 
-           self.group_player = self.group_name + self.player
-           await self.channel_layer.group_add(
-               self.group_player,
-               self.channel_name
-           )
+            self.group_player = self.group_name + self.player
+            await self.channel_layer.group_add(
+                self.group_player,
+                self.channel_name
+            )
+            await self.channel_layer.group_send(
+                self.group_player,
+                {
+                    "type" : "send_turn",
+                    "turn" : self.turn
+                }
+            )
 
     def getGame(self):
         return Game.objects.get(pk=self.game_id)
@@ -54,6 +65,12 @@ class TTTConsumer(AsyncWebsocketConsumer):
           'username' : username,
           'player' : player,
           'available_move_list': available_move_list
+        }))
+    
+    async def send_turn(self, event):
+        turn = event['turn']
+        await self.send(text_data=json.dumps({
+            'turn' : turn
         }))
 
     async def receive(self, text_data):

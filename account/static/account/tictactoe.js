@@ -1,8 +1,10 @@
 //creates the websocket and receives messages
 
 let moves = JSON.parse(document.getElementById('moves').textContent);
-const OG_available_move_list = JSON.parse(document.getElementById('available_move_list').textContent);
+let moveArray = []
+let available_move_list = JSON.parse(document.getElementById('available_move_list').textContent);
 const gameId = JSON.parse(document.getElementById('game-id').textContent);
+const username = JSON.parse(document.getElementById('username').textContent);
 
 const ws = new WebSocket('ws://'
                         + window.location.host
@@ -15,17 +17,23 @@ document.querySelector('.TTTtitle').append(' - ' + gameId);
 
 ws.onmessage = function(e) {
 
-    
     const data = JSON.parse(e.data);
+    
+    if(data.move){
+        moves = incrementMoves(moves, data.move)
+        loadMoves(moves)
+    }
+    if(data.available_move_list){
+        available_move_list = data.available_move_list
+    }
+
     if(data.player == 1){
         document.querySelector(".player1").innerHTML = ("Player 1 - " + data.username);
     }
     else if(data.player == 2){
         document.querySelector(".player2").innerHTML = ("Player 2 - " + data.username);
     }
-    
-    let available_move_list = data.available_move_list
-    
+
     for(let c=0; c < 3; c++) {
         for(let r=0; r < 3; r++) {
             if (available_move_list.includes(c.toString() + r.toString())) {
@@ -36,10 +44,15 @@ ws.onmessage = function(e) {
             }
         }
     }
-    if(data.move){
-        moves = incrementMoves(moves, data.move)
-        loadMoves(moves)
+    if(typeof data.turn === 'boolean' && data.turn === false){
+        for(let c=0; c < 3; c++) {
+            for(let r=0; r < 3; r++) {
+                console.log("REMOVE IS BEING CALLED")
+                document.getElementById(c.toString() + r.toString()).removeEventListener("click", addX)
+            }
+        }
     }
+    
 }
 
 
@@ -80,7 +93,7 @@ function addX(event) {
 
 function loadMoves(moves){//Loops through array of moves to draw O or X
     if(moves){
-        moveArray = moves.split(',')
+        let moveArray = moves.split(',')
         for(const [index, move] of moveArray.entries()){
             let c = move[1]
             let r = move[0]

@@ -10,6 +10,7 @@ class Tictactoe:
             [0, 0, 0],
             [0, 0, 0]
         ]
+        self.turn = 1
         self.create_board_state(self.moves)
 
     def move(self, r, c, player):
@@ -48,6 +49,7 @@ class Tictactoe:
                 self.grid[r][c] = 1
             else:
                 self.grid[r][c] = 2
+        self.turn = 1 if len(moves_list) % 2 == 0 else 2
 
     # lists available moves
     def list_moves(self):
@@ -57,3 +59,4 @@ class Tictactoe:
                 if(self.grid[r][c] == 0):
                     move_list.append(str(r) + str(c))
         return move_list
+    

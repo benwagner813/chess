@@ -16,6 +16,7 @@ def tttGame(request, game_id):
     available_move_list = tictactoe.list_moves()
     player_one_UN = 'Waiting for player...'
     player_two_UN = 'Waiting for player...'
+
     if (User.objects.filter(id=game.player_one).exists()):
         player_one = User.objects.get(pk=game.player_one)
         player_one_UN = player_one.username
@@ -23,13 +24,16 @@ def tttGame(request, game_id):
         player_two = User.objects.get(pk=game.player_two)
         player_two_UN = player_two.username
 
+    if request.user.is_authenticated:
+        username = request.user.username
     return render(request, "tictactoe/tictactoe.html", 
         {
             'game_id' : game_id,
             'player_one_UN': player_one_UN,
             'player_two_UN': player_two_UN,
             'available_move_list': available_move_list,
-            'moves': game.moves
+            'moves': game.moves,
+            'username': username
         })
 
 def createGame(request):
