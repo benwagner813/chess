@@ -12,6 +12,12 @@
         <h1 class="TTTtitle">Game</h1>
     </div>
 
+    <div class="resultContainer">
+        <div class="resultDiv">
+            <h2 class="result"></h2>
+        </div>
+    </div>
+
     <div class="TTTcontainer">
         <div class="TTTboardDiv"></div>
     </div>
@@ -20,6 +26,7 @@
         <h3 class="player1"> Player 1 - {{player_one_UN}}</h3>
         <h3 class="player2"> Player 2 - {{player_two_UN}}</h3>
     </div>
+
 </body>
 
 {{ game_id|json_script:"game-id" }}

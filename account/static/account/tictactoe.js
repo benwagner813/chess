@@ -52,9 +52,17 @@ ws.onmessage = function(e) {
             }
         }
     }
+    if(typeof data.winner === 'string'){
+        for(let c=0; c < 3; c++) {
+            for(let r=0; r < 3; r++) {
+                document.getElementById(c.toString() + r.toString()).removeEventListener("click", addX)
+            }
+        }
+
+        
+    }
     
 }
-
 
 //creates the board
 boardContainer = document.querySelector('.TTTboardDiv')

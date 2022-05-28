@@ -2,6 +2,7 @@ import json
 import logging
 from textwrap import fill
 from .models import Game
+from django.contrib.auth.models import User
 from .Tictactoe import Tictactoe
 from channels.generic.websocket import AsyncWebsocketConsumer
 from channels.db import database_sync_to_async
@@ -83,8 +84,6 @@ class TTTConsumer(AsyncWebsocketConsumer):
         move = text_data_json['move']
         moves = await self.add_move_db(move)
         game = Tictactoe(moves)
-        if(game.isWin()):
-            pass
 
         available_move_list = game.list_moves()
         logging.info(available_move_list)
@@ -97,6 +96,26 @@ class TTTConsumer(AsyncWebsocketConsumer):
                 'available_move_list' : available_move_list
             }
         )
+
+        if(game.isWin()):
+            winner = await self.add_win_db()
+            winning_player = (2, 1)[self.player == '1']
+            await self.channel_layer.group_send(
+                self.group_name,
+                {
+                    "type" : "send_win",
+                    "winner" : winner,
+                    "winning_player" : winning_player
+                }
+            )
+
+    async def send_win(self, event):
+        winner = event['winner']
+        winning_player = event['winning_player']
+        await self.send(text_data=json.dumps({
+            'winner' : winner,
+            'winning_player' : winning_player
+        }))
 
     async def player_move(self, event):#send the move to player websocket
         move = event['move']
@@ -145,6 +164,21 @@ class TTTConsumer(AsyncWebsocketConsumer):
         game.moves = moves
         game.save()
         return game.moves
+
+    @database_sync_to_async
+    def add_win_db(self):
+        game = Game.objects.get(pk=self.game_id)
+        game.complete = True
+        game.winner = (game.player_two, game.player_one)[self.player == '1']
+        game.save()
+        winner = User.objects.get(pk=game.winner)
+        return winner.username
+
+    @database_sync_to_async
+    def add_draw_db(self):
+        game = Game.objects.get(pk=self.game_id)
+        game.complete = True
+        game.winner = 0
 
     async def disconnect(self, code):
         await self.channel_layer.group_discard(
