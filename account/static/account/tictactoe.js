@@ -1,5 +1,10 @@
-//creates the websocket and receives messages
+//if the page was accesses via a back or forward, reload page
+navigation = performance.getEntriesByType("navigation")
+if(navigation[0].type == "back_forward"){
+    location.reload();
+}
 
+//creates the websocket and receives messages
 let moves = JSON.parse(document.getElementById('moves').textContent);
 let moveArray = []
 let available_move_list = JSON.parse(document.getElementById('available_move_list').textContent);
@@ -28,10 +33,10 @@ ws.onmessage = function(e) {
     }
 
     if(data.player == 1){
-        document.querySelector(".player1").innerHTML = ("Player 1 - " + data.username);
+        document.querySelector(".player1").innerHTML = ("Player 1 (O) - " + data.username);
     }
     else if(data.player == 2){
-        document.querySelector(".player2").innerHTML = ("Player 2 - " + data.username);
+        document.querySelector(".player2").innerHTML = ("Player 2 (X) - " + data.username);
     }
 
     for(let c=0; c < 3; c++) {
@@ -59,8 +64,16 @@ ws.onmessage = function(e) {
             }
         }
 
-        
+        //disply result data
+        if(data.winner == username){
+            document.querySelector(".result").innerHTML = ("Victory!")
+            document.querySelector(".result").style.color = "rgb(50, 168, 82)"
+        }else{
+            document.querySelector(".result").innerHTML = ("Defeat.")
+            document.querySelector(".result").style.color = "rgb(209, 85, 85)"
+        }
     }
+
     
 }
 
@@ -123,6 +136,7 @@ function loadMoves(moves){//Loops through array of moves to draw O or X
         }
     }
 }
+
 function incrementMoves(moves, move){//checks whether moves is null then returns the moves with the added move
     if(moves == null){
         moves = move
@@ -131,3 +145,4 @@ function incrementMoves(moves, move){//checks whether moves is null then returns
     }
     return moves
 }
+

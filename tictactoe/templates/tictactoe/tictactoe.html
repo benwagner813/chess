@@ -22,9 +22,24 @@
         <div class="TTTboardDiv"></div>
     </div>
 
-    <div>
-        <h3 class="player1"> Player 1 - {{player_one_UN}}</h3>
-        <h3 class="player2"> Player 2 - {{player_two_UN}}</h3>
+    <div class="UNContainer">
+        <div class="UNDiv">
+            <div class="UNDisplay">
+                <h3 class="player1"> Player 1 (O) - {{player_one_UN}}</h3> 
+                {%if player_one_UN == winnerUN %}
+                    <h3 class="winner"> Winner! </h3>
+                {% endif %}
+            </div>
+            <div class="DrawDiv">
+                <h3 class="draw">Test</h3>
+            </div>
+            <div class="UNDisplay">
+                <h3 class="player2"> Player 2 (X) - {{player_two_UN}}</h3>
+                {%if player_two_UN == winnerUN %}
+                    <h3 class="winner"> Winner! </h3>
+                {% endif %}
+            </div>
+        </div>
     </div>
 
 </body>

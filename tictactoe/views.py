@@ -14,6 +14,12 @@ def tttGame(request, game_id):
     else:
         tictactoe = Tictactoe(game.moves)
     available_move_list = tictactoe.list_moves()
+    if game.winner is not None:
+        winner = User.objects.get(pk=game.winner)
+        winnerUN = winner.username
+    else:
+        winnerUN = None
+
     player_one_UN = 'Waiting for player...'
     player_two_UN = 'Waiting for player...'
 
@@ -33,7 +39,8 @@ def tttGame(request, game_id):
             'player_two_UN': player_two_UN,
             'available_move_list': available_move_list,
             'moves': game.moves,
-            'username': username
+            'username': username,
+            'winnerUN' : winnerUN
         })
 
 def createGame(request):
