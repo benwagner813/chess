@@ -1,6 +1,6 @@
 import json
-import logging
-from textwrap import fill
+import logging, time
+from tracemalloc import start
 from .models import Game
 from django.contrib.auth.models import User
 from .Tictactoe import Tictactoe
@@ -86,7 +86,6 @@ class TTTConsumer(AsyncWebsocketConsumer):
         game = Tictactoe(moves)
 
         available_move_list = game.list_moves()
-        logging.info(available_move_list)
 
         await self.channel_layer.group_send(
             player_group,
@@ -108,6 +107,22 @@ class TTTConsumer(AsyncWebsocketConsumer):
                     "winning_player" : winning_player
                 }
             )
+        elif(len(available_move_list) == 0):
+            await self.add_draw_db()
+            winner = 0
+            await self.channel_layer.group_send(
+                self.group_name,
+                {
+                    "type" : "send_draw",
+                    "winner" : winner
+                }
+            )
+
+    async def send_draw(self, event):
+        winner = event['winner']
+        await self.send(text_data=json.dumps({
+            'winner' : winner
+        }))
 
     async def send_win(self, event):
         winner = event['winner']
@@ -120,12 +135,11 @@ class TTTConsumer(AsyncWebsocketConsumer):
     async def player_move(self, event):#send the move to player websocket
         move = event['move']
         available_move_list = event['available_move_list']
-        logging.info(available_move_list)
         await self.send(text_data=json.dumps({
             'move': move,
             'available_move_list' : available_move_list
         }))
-        logging.info("The server sent the move down the websocket")
+        
 
     def dbCalls(self): #dbCalls checks if the user matches the database and enters the user in the game if there is none
         game = Game.objects.get(pk=self.game_id)
@@ -179,6 +193,8 @@ class TTTConsumer(AsyncWebsocketConsumer):
         game = Game.objects.get(pk=self.game_id)
         game.complete = True
         game.winner = 0
+        game.save()
+        
 
     async def disconnect(self, code):
         await self.channel_layer.group_discard(

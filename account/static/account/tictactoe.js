@@ -10,6 +10,7 @@ let moveArray = []
 let available_move_list = JSON.parse(document.getElementById('available_move_list').textContent);
 const gameId = JSON.parse(document.getElementById('game-id').textContent);
 const username = JSON.parse(document.getElementById('username').textContent);
+const winner = JSON.parse(document.getElementById('winnerUN').textContent);
 
 const ws = new WebSocket('ws://'
                         + window.location.host
@@ -65,13 +66,20 @@ ws.onmessage = function(e) {
         }
 
         //disply result data
-        if(data.winner == username){
+        if(data.winner == 0){
+            console.log("The data is 0")
+            document.querySelector(".draw").innerHTML = ("Draw")
+        }else if(data.winner == username){
             document.querySelector(".result").innerHTML = ("Victory!")
             document.querySelector(".result").style.color = "rgb(50, 168, 82)"
         }else{
-            document.querySelector(".result").innerHTML = ("Defeat.")
+            document.querySelector(".result").innerHTML = ("Defeat")
             document.querySelector(".result").style.color = "rgb(209, 85, 85)"
         }
+    }
+    if(typeof data.winner === 'number'){
+        console.log("The data is 0")
+        document.querySelector(".draw").innerHTML = ("Draw")
     }
 
     
@@ -145,4 +153,3 @@ function incrementMoves(moves, move){//checks whether moves is null then returns
     }
     return moves
 }
-

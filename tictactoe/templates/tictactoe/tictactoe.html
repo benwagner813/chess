@@ -31,7 +31,11 @@
                 {% endif %}
             </div>
             <div class="DrawDiv">
-                <h3 class="draw">Test</h3>
+                <h3 class="draw">
+                    {%if winnerUN == 0%}
+                        Draw
+                    {%endif%}
+                </h3>
             </div>
             <div class="UNDisplay">
                 <h3 class="player2"> Player 2 (X) - {{player_two_UN}}</h3>
@@ -48,6 +52,7 @@
 {{ moves|json_script:"moves" }}
 {{ available_move_list|json_script:"available_move_list" }}
 {{ username|json_script:"username" }}
+{{ winnerUN|json_script:"winnerUN" }}
 <script src="{% static 'account/tictactoe.js' %}"></script>
 
 

@@ -4,6 +4,7 @@ from .models import Game
 from django.contrib.auth.models import User
 import logging
 
+
 def tttLobby(request):
     return render(request, "tictactoe/tttLobby.html", {})
 
@@ -14,7 +15,9 @@ def tttGame(request, game_id):
     else:
         tictactoe = Tictactoe(game.moves)
     available_move_list = tictactoe.list_moves()
-    if game.winner is not None:
+    if game.winner == 0:
+        winnerUN = 0
+    elif game.winner is not None:
         winner = User.objects.get(pk=game.winner)
         winnerUN = winner.username
     else:
