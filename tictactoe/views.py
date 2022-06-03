@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
+from django.http import Http404
 from tictactoe.Tictactoe import Tictactoe
 from .models import Game
 from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist
 import logging
 
 
@@ -9,7 +11,11 @@ def tttLobby(request):
     return render(request, "tictactoe/tttLobby.html", {})
 
 def tttGame(request, game_id):
-    game = Game.objects.get(pk=game_id)
+    try:
+        game = Game.objects.get(pk=game_id)
+    except ObjectDoesNotExist:
+        raise Http404
+
     if (game.moves == None):
         tictactoe = Tictactoe("")
     else:
@@ -35,6 +41,8 @@ def tttGame(request, game_id):
 
     if request.user.is_authenticated:
         username = request.user.username
+    else:
+        username = None
     return render(request, "tictactoe/tictactoe.html", 
         {
             'game_id' : game_id,

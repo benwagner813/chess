@@ -21,7 +21,7 @@ class TTTConsumer(AsyncWebsocketConsumer):
             self.group_name,
             self.channel_name
         )
-
+        
         if(await database_sync_to_async(self.dbCalls)()): #If dbCalls returns True connect the user
             await self.accept()
             game = await database_sync_to_async(self.getGame)()
@@ -54,9 +54,9 @@ class TTTConsumer(AsyncWebsocketConsumer):
                     "turn" : self.turn
                 }
             )
+        else:
+            await self.close()
 
-    def getGame(self):
-        return Game.objects.get(pk=self.game_id)
     
     async def send_user(self, event): # send to websocket
         username = event['user']
@@ -68,26 +68,26 @@ class TTTConsumer(AsyncWebsocketConsumer):
           'available_move_list': available_move_list
         }))
     
-    async def send_turn(self, event):
+    async def send_turn(self, event):#if it is the players turn send true else false
         turn = event['turn']
         await self.send(text_data=json.dumps({
             'turn' : turn
         }))
 
-    async def receive(self, text_data):
+    async def receive(self, text_data):#This method fires every time a message is received from a web socket
         if(self.player == '1'):
             player_group = self.group_name + '2'
         else:
             player_group = self.group_name + '1'
 
-        text_data_json = json.loads(text_data)
+        text_data_json = json.loads(text_data)#Get the move data from JSON and instantiate tictactoe object
         move = text_data_json['move']
         moves = await self.add_move_db(move)
         game = Tictactoe(moves)
 
         available_move_list = game.list_moves()
 
-        await self.channel_layer.group_send(
+        await self.channel_layer.group_send(#Send the move and the resulting available moves to the opponent
             player_group,
             {
                 'type' : 'player_move',
@@ -96,7 +96,7 @@ class TTTConsumer(AsyncWebsocketConsumer):
             }
         )
 
-        if(game.isWin()):
+        if(game.isWin()):#check for game win
             winner = await self.add_win_db()
             winning_player = (2, 1)[self.player == '1']
             await self.channel_layer.group_send(
@@ -107,7 +107,7 @@ class TTTConsumer(AsyncWebsocketConsumer):
                     "winning_player" : winning_player
                 }
             )
-        elif(len(available_move_list) == 0):
+        elif(len(available_move_list) == 0):#If the game is not won and the available moves is 0 then the game is a draw
             await self.add_draw_db()
             winner = 0
             await self.channel_layer.group_send(
@@ -118,13 +118,13 @@ class TTTConsumer(AsyncWebsocketConsumer):
                 }
             )
 
-    async def send_draw(self, event):
+    async def send_draw(self, event):#sends a message with a winner of 0 indicating a draw
         winner = event['winner']
         await self.send(text_data=json.dumps({
             'winner' : winner
         }))
 
-    async def send_win(self, event):
+    async def send_win(self, event):#sends a message containing the winners username and the player that won (1 or 2)
         winner = event['winner']
         winning_player = event['winning_player']
         await self.send(text_data=json.dumps({
@@ -140,10 +140,15 @@ class TTTConsumer(AsyncWebsocketConsumer):
             'available_move_list' : available_move_list
         }))
         
+    def getGame(self):
+        return Game.objects.get(pk=self.game_id)
 
     def dbCalls(self): #dbCalls checks if the user matches the database and enters the user in the game if there is none
         game = Game.objects.get(pk=self.game_id)
-
+        
+        if self.user.is_anonymous or game.complete:#returns false if the game is complete or the user is not logged in (used to deny connections)
+            return False
+        
         if (self.user.id == game.player_one or self.user.id == game.player_two):
             if(self.user.id == game.player_one):
                 self.player = '1'
@@ -151,13 +156,13 @@ class TTTConsumer(AsyncWebsocketConsumer):
                 self.player = '2'
             return True
 
-        elif (game.player_one == None):
+        elif (game.player_one is None):
             game.player_one = self.user.id
             game.save()
             self.player = '1'
             return True
             
-        elif (game.player_two == None):
+        elif (game.player_two is None):
             game.player_two = self.user.id
             game.save()
             self.player = '2'
