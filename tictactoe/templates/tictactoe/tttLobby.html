@@ -5,18 +5,70 @@
 {% block content %}
 {% include "nav.html" %}
 <body>
-    <div class="main">
-        <h1>Tic Tac Toe Lobby</h1>
+    <div class="lobbyContainer">
+        <div class="lobbyDiv">
+            <div class="lobbyTitle">
+                <h1>Tic Tac Toe</h1>
+            </div>
+            <div class="howToPlay">
+                <h2 class="htpTitle">How to Play</h2>
+                <ul class="htpList">
+                    <li class="htpItem">
+                        <p class="htpText">The game is played on a grid that's 3 squares by 3 squares.</p>
+                    </li>
+                    <li class="htpItem">
+                        <p class="htpText">Player 1 is O, Player 2 is X. Players take turns putting their marks in empty squares.</p>
+                    </li>
+                    <li class="htpItem">
+                        <p class="htpText">The first player to get 3 of their marks in a row (up, down, across, or diagonally) is the winner.</p>
+                    </li>
+                    <li class="htpItem">
+                        <p class="htpText">When all 9 squares are full, the game is over.</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="buttonsDiv">
+                <div class="createGameDiv">
+                    <a class="createGame" href="../createGame/">Create Game </a>
+                </div>
+                <div class="joinGameDiv">
+                    <button type="button" class="joinGame" onClick="openPopup()">Join Game </button>
+                </div>
+            </div>
+            <div class="popup" id="popup">
+                <h2>Enter Game #</h2>
+                <p>Enter the game number of the game that you wish to join.</p>
+                <div class="inputDiv">
+                    <input class="numInput" id="numInput" type="number"></input>
+                </div>
+                <button class="popCancel" type="button" onClick="closePopup()">Cancel</button>
+                <button class="popJoin" id="popJoin" type="submit" onClick="joinGame()">Join</button>
+            </div>
+        </div>
     </div>
-    <div>
-        <a href="../createGame/">Create Game </a>
-    </div>
-    </body>
+
+</body>
 
 <script>
 const ws = new WebSocket('ws://'
                         + window.location.host
                         + '/ws/tictactoe/lobby')
 
+let popup = document.getElementById("popup");
+let inputBox = document.getElementById("numInput");
+
+function openPopup() {
+    popup.classList.add("open-popup");
+}
+
+function closePopup() {
+    popup.classList.remove("open-popup");
+}
+
+function joinGame() {
+    console.log(inputBox.value)
+    let destination = inputBox.value
+    location.href = "../" + destination
+}
 </script>
 {% endblock %}

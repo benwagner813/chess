@@ -1,3 +1,193 @@
+/* Lobby styles */
+.lobbyContainer {
+    display: flex;
+}
+
+.lobbyDiv {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.lobbyTitle {
+    margin: auto;
+    text-decoration: overline;
+    text-decoration: underline;
+    text-decoration-color: #d66c45;
+    text-decoration-thickness: 3px;
+}
+
+.howToPlay {
+    width: 700px;
+    margin-bottom: 35px;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(255, 255, 255, .10);
+    border: 3px solid rgb(255, 255, 255, .30);
+    border-radius: 7px;
+}
+
+.htpTitle {
+    color: rgb(255, 255, 255, .90);
+    font-size: 30px;
+    margin: auto;
+    margin-top: 5px;
+}
+
+.htpText {
+    font-size: 18px;
+    color: rgb(255, 255, 255, .90);
+    margin: 5px;
+    margin-bottom: 20px;
+}
+
+.buttonsDiv {
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.createGameDiv{
+    display: flex;
+    padding-right: 5px;
+}
+
+.joinGameDiv {
+    display: flex;
+    padding-left: 5px;
+}
+
+.createGame {
+    text-decoration: none;
+    font-size: 25px;
+    width: 200px;
+    padding: 5px;
+    background-color: rgb(50, 168, 82);
+    border: none;
+    border-radius: 7px;
+}
+
+.joinGame {
+    text-decoration: none;
+    font-size: 25px;
+    width: 200px;
+    padding: 5px;
+    background: none;
+    border: none;
+    box-shadow: inset 0px 0px 0px 2px rgb(50, 168, 82);
+    border-radius: 7px;
+}
+
+.createGame:hover {
+    background-color: rgb(69, 182, 99);
+    cursor: pointer;
+}
+
+.joinGame:hover {
+    background-color: rgba(255, 255, 255, .10);
+    cursor: pointer;
+}
+
+.popup {
+    width: 500px;
+    background-color: #2a2a2a;
+    border: 3px solid rgb(255, 255, 255, .30);
+    border-radius: 7px;
+    position: absolute;
+    top: 0%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.1);
+    text-align: center;
+    padding: 0 20px 20px 20px;
+    visibility: hidden;
+}
+
+.open-popup{
+    visibility: visible;
+    top: 48%;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.popup h2{
+    color: rgb(255, 255, 255, .90);
+    font-size: 30px;
+    margin: auto;
+    margin-top: 5px;
+}
+
+.popup p{
+    margin-top: 10px;
+}
+
+.numInput {
+    text-align: center;
+    background: transparent;
+    border-top-style: solid;
+    border-right-style: solid;
+    border-left-style: solid;
+    width: 200px;
+    font-size: 20px;
+    padding: 2px;
+    background-color: rgb(255, 255, 255, .10);
+    border-color: rgb(255, 255, 255, .30);
+    box-shadow: 1px 1px 1px rgb(255, 255, 255, .09);
+    border-radius: 5px;
+}
+
+.numInput::-webkit-outer-spin-button,
+.numInput::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+.numInput:hover {
+    background-color: rgb(255, 255, 255, .20);
+    border-color: rgb(255, 255, 255, .60);
+}
+
+.numInput:focus {
+    background-color: rgb(255, 255, 255, .20);
+    border-color: rgb(255, 255, 255, .60);
+}
+
+.popCancel{
+    text-decoration: none;
+    font-size: 25px;
+    width: 160px;
+    padding: 5px;
+    background: none;
+    box-shadow: inset 0px 0px 0px 2px rgb(50, 168, 82);
+    border: none;
+    border-radius: 7px;
+    margin-top: 20px;
+}
+
+.popCancel:hover {
+    background-color: rgba(255, 255, 255, .10);
+    cursor: pointer;
+}
+
+.popJoin{
+    text-decoration: none;
+    font-size: 25px;
+    width: 160px;
+    padding: 5px;
+    background-color: rgb(50, 168, 82);
+    border: none;
+    border-radius: 7px;
+    margin-top: 10px;
+}
+
+.popJoin:hover {
+    background-color: rgb(69, 182, 99);
+    cursor: pointer;
+}
+
+
+
+/* Game styles */
 .TTTtitle {
     text-align: center;
     color: rgb(255, 255, 255, .90);
@@ -61,26 +251,40 @@
     display: flex;
     flex-direction: column;
     margin: auto;
+    margin-top: 25px;
+    padding: 25px;
+    text-align: center;
+    background-color: rgb(255, 255, 255, .07);
+    border-style: solid;
+    border-width: 3px;
+    border-color: rgba(255, 255, 255, .30);
+    border-radius: 5px;
 }
 
 .UNDisplay {
     display: flex;
     flex-direction: row;
-    margin: 0;
+    margin: auto;
+    margin-left: 0px;
 }
 
 .player1{
     font-size: 25px;
+    margin: auto;
     margin-bottom: 5px;
+    margin-left: 0px;
 } 
 
 .player2 {
     font-size: 25px;
+    margin: auto;
     margin-top: 5px;
+    margin-left: 0px;
 }
 
 .winner {
     color: #d6b445;
+    margin: auto;
     margin-left: 15px;
     margin-bottom: 5px;
     font-size: 25px;
@@ -88,8 +292,9 @@
 
 .draw {
     color:#4567d6;
-    font-size: 25px;
-    padding: 0;
+    margin: auto;
+    font-size: 35px;
+    padding: 10px;
 }
 
 .DrawDiv {
