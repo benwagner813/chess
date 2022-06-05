@@ -11,6 +11,7 @@ let available_move_list = JSON.parse(document.getElementById('available_move_lis
 const gameId = JSON.parse(document.getElementById('game-id').textContent);
 const username = JSON.parse(document.getElementById('username').textContent);
 const winner = JSON.parse(document.getElementById('winnerUN').textContent);
+const winCombo = JSON.parse(document.getElementById('winCombo').textContent);
 
 oAudio= new Audio("https://www.zapsplat.com/wp-content/uploads/2015/sound-effects-31172/zapsplat_office_chalk_stick_thick_draw_circle_on_small_chalk_board_001_34597.mp3");
 
@@ -71,7 +72,7 @@ ws.onmessage = function(e) {
                 document.getElementById(c.toString() + r.toString()).removeEventListener("click", addX)
             }
         }
-
+        document.getElementById("strike").classList.add(`strike-${data.winCombo}`)
         //disply result data
         if(data.winner == username){
             document.querySelector(".result").innerHTML = ("Victory!")
@@ -103,8 +104,12 @@ for(let c=0; c < 3; c++) {
     }
     htmlUpdate += '</div>'
 }
+htmlUpdate += '<div id="strike" class="strike"></div>'
 boardContainer.innerHTML = htmlUpdate;
 loadMoves(moves)
+if(winCombo){
+    document.getElementById("strike").classList.add(`strike-${winCombo}`)
+}
 
 //This will display x or o on click
 function addX(event) {
@@ -138,16 +143,16 @@ function loadMoves(moves){//Loops through array of moves to draw O or X
 
             if(index%2 == 0){
                 document.getElementById(id).innerHTML = 
-                `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 380.734 380.734" style="enable-background:new 0 0 380.734 380.734;" xml:space="preserve">
-                <path style="fill:#010002;" d="M190.367,0C85.23,0,0,85.23,0,190.367s85.23,190.367,190.367,190.367s190.367-85.23,190.367-190.367   S295.504,0,190.367,0z M299.002,298.36c-28.996,28.996-67.57,44.959-108.634,44.959S110.723,327.35,81.733,298.36   c-28.865-28.876-44.769-67.227-44.769-107.993c0-40.771,15.904-79.128,44.769-107.993c28.99-28.996,67.57-44.959,108.634-44.959   c41.054,0,79.639,15.969,108.629,44.959c28.871,28.865,44.763,67.221,44.763,107.993   C343.765,231.133,327.867,269.489,299.002,298.36z"/>
-                </svg>`; // O
-            }else{
-                document.getElementById(id).innerHTML = 
                 `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 460.775 460.775" style="enable-background:new 0 0 460.775 460.775;" xml:space="preserve">
                 <path
                 style ="fill:rgb(255, 255, 255, .40)" 
                 d="M285.08,230.397L456.218,59.27c6.076-6.077,6.076-15.911,0-21.986L423.511,4.565c-2.913-2.911-6.866-4.55-10.992-4.55  c-4.127,0-8.08,1.639-10.993,4.55l-171.138,171.14L59.25,4.565c-2.913-2.911-6.866-4.55-10.993-4.55  c-4.126,0-8.08,1.639-10.992,4.55L4.558,37.284c-6.077,6.075-6.077,15.909,0,21.986l171.138,171.128L4.575,401.505  c-6.074,6.077-6.074,15.911,0,21.986l32.709,32.719c2.911,2.911,6.865,4.55,10.992,4.55c4.127,0,8.08-1.639,10.994-4.55  l171.117-171.12l171.118,171.12c2.913,2.911,6.866,4.55,10.993,4.55c4.128,0,8.081-1.639,10.992-4.55l32.709-32.719  c6.074-6.075,6.074-15.909,0-21.986L285.08,230.397z"/>
                 </svg>`;// X
+            }else{
+                document.getElementById(id).innerHTML = 
+                `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 380.734 380.734" style="enable-background:new 0 0 380.734 380.734;" xml:space="preserve">
+                <path style="fill:#010002;" d="M190.367,0C85.23,0,0,85.23,0,190.367s85.23,190.367,190.367,190.367s190.367-85.23,190.367-190.367   S295.504,0,190.367,0z M299.002,298.36c-28.996,28.996-67.57,44.959-108.634,44.959S110.723,327.35,81.733,298.36   c-28.865-28.876-44.769-67.227-44.769-107.993c0-40.771,15.904-79.128,44.769-107.993c28.99-28.996,67.57-44.959,108.634-44.959   c41.054,0,79.639,15.969,108.629,44.959c28.871,28.865,44.763,67.221,44.763,107.993   C343.765,231.133,327.867,269.489,299.002,298.36z"/>
+                </svg>`; // O
                 
             }
         }

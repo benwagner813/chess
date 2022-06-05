@@ -98,13 +98,15 @@ class TTTConsumer(AsyncWebsocketConsumer):
 
         if(game.isWin()):#check for game win
             winner = await self.add_win_db()
+            winCombo = game.winCombo
             winning_player = (2, 1)[self.player == '1']
             await self.channel_layer.group_send(
                 self.group_name,
                 {
                     "type" : "send_win",
                     "winner" : winner,
-                    "winning_player" : winning_player
+                    "winning_player" : winning_player,
+                    "winCombo" : winCombo
                 }
             )
         elif(len(available_move_list) == 0):#If the game is not won and the available moves is 0 then the game is a draw
@@ -127,9 +129,11 @@ class TTTConsumer(AsyncWebsocketConsumer):
     async def send_win(self, event):#sends a message containing the winners username and the player that won (1 or 2)
         winner = event['winner']
         winning_player = event['winning_player']
+        winCombo = event['winCombo']
         await self.send(text_data=json.dumps({
             'winner' : winner,
-            'winning_player' : winning_player
+            'winning_player' : winning_player,
+            'winCombo' : winCombo
         }))
 
     async def player_move(self, event):#send the move to player websocket

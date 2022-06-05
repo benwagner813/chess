@@ -23,17 +23,21 @@ class Tictactoe:
             # checks if horizontal win
             if(grid[i][0] == grid[i][1] and grid[i][0] != 0):
                 if(grid[i][1] == grid[i][2]):
+                    self.winCombo = f"row-{i+1}"
                     return True
             # checks if vertical win
             if(grid[0][i] == grid[1][i] and grid[0][i] != 0):
                 if(grid[1][i] == grid[2][i]):
+                    self.winCombo = f"col-{i+1}"
                     return True
         # checks if diagonal win
         if(grid[0][0] == grid[1][1] and grid[0][0] != 0):
             if(grid[1][1] == grid[2][2]):
+                self.winCombo = "dia-dright"
                 return True
         if(grid[2][0] == grid[1][1] and grid[2][0] != 0):
             if(grid[1][1] == grid[0][2]):
+                self.winCombo = "dia-dleft"
                 return True
         return False
 

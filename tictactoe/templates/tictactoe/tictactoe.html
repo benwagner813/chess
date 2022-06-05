@@ -19,7 +19,9 @@
     </div>
 
     <div class="TTTcontainer">
-        <div class="TTTboardDiv"></div>
+        <div class="TTTboardDiv">
+            
+        </div>
     </div>
 
     <div class="UNContainer">
@@ -53,6 +55,7 @@
 {{ available_move_list|json_script:"available_move_list" }}
 {{ username|json_script:"username" }}
 {{ winnerUN|json_script:"winnerUN" }}
+{{ winCombo|json_script:"winCombo" }}
 <script src="{% static 'account/tictactoe.js' %}"></script>
 
 
