@@ -28,7 +28,7 @@
 
     {% if user.is_authenticated %}
 
-        <p>Hello, {{user.first_name}}</p>
+        <p class="greet">Hello, {{user.first_name}}</p>
 
         <div class="logoutLinkDiv">
             <a href="/account/logout" class="logoutLink">Logout</a>

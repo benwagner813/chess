@@ -12,19 +12,50 @@
         <h1 class="TTTtitle">Game</h1>
     </div>
 
-    <div class="TTTcontainer">
-        <div class="TTTboardDiv"></div>
+    <div class="resultContainer">
+        <div class="resultDiv">
+            <h2 class="result"></h2>
+        </div>
     </div>
 
-    <div>
-        <h3 class="player1"> Player 1 - {{player_one_UN}}</h3>
-        <h3 class="player2"> Player 2 - {{player_two_UN}}</h3>
+    <div class="TTTcontainer">
+        <div class="TTTboardDiv">
+            
+        </div>
     </div>
+
+    <div class="UNContainer">
+        <div class="UNDiv">
+            <div class="UNDisplay">
+                <h3 class="player1"> Player 1 (O) - {{player_one_UN}}</h3>
+                {%if player_one_UN == winnerUN %}
+                    <h3 class="winner"> Winner! </h3>
+                {% endif %}
+            </div>
+            <div class="DrawDiv">
+                <h3 class="draw">
+                    {%if winnerUN == 0%}
+                        Draw
+                    {%endif%}
+                </h3>
+            </div>
+            <div class="UNDisplay">
+                <h3 class="player2"> Player 2 (X) - {{player_two_UN}}</h3>
+                {%if player_two_UN == winnerUN %}
+                    <h3 class="winner"> Winner! </h3>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
 </body>
 
 {{ game_id|json_script:"game-id" }}
 {{ moves|json_script:"moves" }}
 {{ available_move_list|json_script:"available_move_list" }}
+{{ username|json_script:"username" }}
+{{ winnerUN|json_script:"winnerUN" }}
+{{ winCombo|json_script:"winCombo" }}
 <script src="{% static 'account/tictactoe.js' %}"></script>
 
 
