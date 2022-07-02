@@ -39,7 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'channels',
     'chat',
-    'account'
+    'account',
+    'CoolChess',
+    'tictactoe',
+    'chess',
 ]
 
 MIDDLEWARE = [
@@ -53,6 +56,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'CoolChess.urls'
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'
 
 TEMPLATES = [
     {
@@ -89,7 +94,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'chessdb',
-        'USER': 'user',
+        'USER': 'myubuntu',
         'PASSWORD': 'password',
         'HOST': 'localhost',
         'PORT': '',
