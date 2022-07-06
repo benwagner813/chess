@@ -1,7 +1,78 @@
 {% extends "App.html" %}
 
+{% load static %}
+
 {% block title %}Chess{% endblock %}
 
 {% block content %}
 {% include "nav.html" %}
+
+<body>
+    <div class="ChessTitleDiv">
+        <h1 class="ChessTitle">Game</h1>
+    </div>
+
+    <div class="ChessContainer">
+        <div class="interiorContainer">
+
+            <div class="YaxisLabel1">
+                <p class="axisLabel">8</p>
+            </div>
+            <div class="YaxisLabel2">
+                <p class="axisLabel">7</p>
+            </div>
+            <div class="YaxisLabel3">
+                <p class="axisLabel">6</p>
+            </div>
+            <div class="YaxisLabel4">
+                <p class="axisLabel">5</p>
+            </div>
+            <div class="YaxisLabel5">
+                <p class="axisLabel">4</p>
+            </div>
+            <div class="YaxisLabel6">
+                <p class="axisLabel">3</p>
+            </div>
+            <div class="YaxisLabel7">
+                <p class="axisLabel">2</p>
+            </div>
+            <div class="YaxisLabel8">
+                <p class="axisLabel">1</p>
+            </div>
+            
+            <div class="ChessBoardDiv">
+                
+            </div>
+
+            <div class="XaxisLabel1">
+                <p class="axisLabel">A</p>
+            </div>
+            <div class="XaxisLabel2">
+                <p class="axisLabel">B</p>
+            </div>
+            <div class="XaxisLabel3">
+                <p class="axisLabel">C</p>
+            </div>
+            <div class="XaxisLabel4">
+                <p class="axisLabel">D</p>
+            </div>
+            <div class="XaxisLabel5">
+                <p class="axisLabel">E</p>
+            </div>
+            <div class="XaxisLabel6">
+                <p class="axisLabel">F</p>
+            </div>
+            <div class="XaxisLabel7">
+                <p class="axisLabel">G</p>
+            </div>
+            <div class="XaxisLabel8">
+                <p class="axisLabel">H</p>
+            </div>
+        </div>
+    </div>
+</body>
+
+{{ id|json_script:"game-id" }}
+<script src="{% static 'account/chess.js' %}"></script>
+
 {% endblock %}

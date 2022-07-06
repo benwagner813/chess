@@ -4,4 +4,33 @@
 
 {% block content %}
 {% include "nav.html" %}
+<body>
+    <div class="lobbyContainer">
+        <div class="lobbyDiv">
+            <div class="lobbyTitle">
+                <h1>Chess</h1>
+            </div>
+            <div class="buttonsDiv">
+                <div class="createGameDiv">
+                    <a class="createGame" href="../createGame/">Create Game </a>
+                </div>
+                <div class="joinGameDiv">
+                    <button type="button" class="joinGame" onClick="openPopup()">Join Game </button>
+                </div>
+            </div>
+            <div class="popup" id="popup">
+                <h2>Enter Game #</h2>
+                <p>Enter the game number of the game that you wish to join.</p>
+                <div class="inputDiv">
+                    <input class="numInput" id="numInput" type="number"></input>
+                </div>
+                <button class="popCancel" type="button" onClick="closePopup()">Cancel</button>
+                <button class="popJoin" id="popJoin" type="submit" onClick="">Join</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+</script>
 {% endblock %}
