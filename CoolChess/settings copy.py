@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'account',
     'CoolChess',
     'tictactoe',
-    'chess',
+    'chess_online',
 ]
 
 MIDDLEWARE = [

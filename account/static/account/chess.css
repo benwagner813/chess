@@ -43,6 +43,21 @@
     text-align: center;
 }
 
+.flipButton {
+    text-decoration: none;
+    font-size: 25px;
+    width: 200px;
+    padding: 5px;
+    background: none;
+    border: none;
+    box-shadow: inset 0px 0px 0px 2px rgb(50, 168, 82);
+    border-radius: 7px;
+}
+
+.flipButton:hover {
+    cursor: pointer;
+}
+
 .interiorContainer {
     margin: auto;
 }

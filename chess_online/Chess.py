@@ -1,3 +1,4 @@
+from select import EPOLLRDBAND
 import chess
 # class Chess:
 
@@ -515,6 +516,21 @@ import chess
 
 board = chess.Board()
 board.push_san('e4')
+board.push_san('d5')
+board.push_san('ed5')
 board.push_san('e5')
-board.push_san('Ke2')
-print(board)
+pv = chess.Board().variation_san(board.move_stack)
+epd = board.epd(hmvc=board.halfmove_clock, fmvn=board.fullmove_number, pv=pv)
+move = chess.Move.from_uci('h2h4')
+san = board.san(move)
+board.push(move)
+epd = board.epd(hmvc=board.halfmove_clock, fmvn=board.fullmove_number, pv=pv + move)
+print(epd)
+board2 = chess.Board()
+board2.set_epd(epd)
+print(board2.fullmove_number)
+movelist = []
+moves = board.legal_moves
+for move in moves:
+    movelist.append(move.uci())
+print(movelist)
