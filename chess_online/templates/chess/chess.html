@@ -1,0 +1,91 @@
+{% extends "App.html" %}
+
+{% load static %}
+
+{% block title %}Chess{% endblock %}
+
+{% block content %}
+{% include "nav.html" %}
+
+<body>
+    <div class="ChessTitleDiv">
+        <h1 class="ChessTitle">Game</h1>
+    </div>
+
+    <div class="ChessContainer">
+        <div class="interiorContainer">
+
+            <div class="YaxisLabel1">
+                <p class="axisLabel" id="y1">8</p>
+            </div>
+            <div class="YaxisLabel2">
+                <p class="axisLabel" id="y2">7</p>
+            </div>
+            <div class="YaxisLabel3">
+                <p class="axisLabel" id="y3">6</p>
+            </div>
+            <div class="YaxisLabel4">
+                <p class="axisLabel" id="y4">5</p>
+            </div>
+            <div class="YaxisLabel5">
+                <p class="axisLabel" id="y5">4</p>
+            </div>
+            <div class="YaxisLabel6">
+                <p class="axisLabel" id="y6">3</p>
+            </div>
+            <div class="YaxisLabel7">
+                <p class="axisLabel" id="y7">2</p>
+            </div>
+            <div class="YaxisLabel8">
+                <p class="axisLabel" id="y8">1</p>
+            </div>
+            
+            <div class="ChessBoardDiv">
+                
+            </div>
+
+            <div class="XaxisLabel1">
+                <p class="axisLabel" id="x1">A</p>
+            </div>
+            <div class="XaxisLabel2">
+                <p class="axisLabel" id="x2">B</p>
+            </div>
+            <div class="XaxisLabel3">
+                <p class="axisLabel" id="x3">C</p>
+            </div>
+            <div class="XaxisLabel4">
+                <p class="axisLabel" id="x4">D</p>
+            </div>
+            <div class="XaxisLabel5">
+                <p class="axisLabel" id="x5">E</p>
+            </div>
+            <div class="XaxisLabel6">
+                <p class="axisLabel" id="x6">F</p>
+            </div>
+            <div class="XaxisLabel7">
+                <p class="axisLabel" id="x7">G</p>
+            </div>
+            <div class="XaxisLabel8">
+                <p class="axisLabel" id="x8">H</p>
+            </div>
+        </div>
+    </div>
+    <div class="buttonContainer">
+        <button type="button" class="flipButton" onClick="flipBoard()">Flip Board</button>
+    </div>
+    <div class="UNContainer">
+        <div class="UNDiv">
+            <div class="UNDisplay">
+                <h3 class="player1"> White - {{white}}</h3>
+            </div>
+            <div class="UNDisplay">
+                <h3 class="player2"> Black - {{black}}</h3>
+            </div>
+        </div>
+    </div>
+</body>
+
+{{ id|json_script:"game-id" }}
+<script src="{% static 'account/chess.js' %}"></script>
+
+{% endblock %}

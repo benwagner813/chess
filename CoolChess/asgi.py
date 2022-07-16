@@ -14,6 +14,7 @@ from channels.routing import ProtocolTypeRouter, URLRouter
 from django.core.asgi import get_asgi_application
 import chat.routing
 import tictactoe.routing
+import chess_online.routing
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'CoolChess.settings')
 
@@ -22,7 +23,8 @@ application = ProtocolTypeRouter({
     "websocket": AuthMiddlewareStack(
         URLRouter([
             *chat.routing.websocket_urlpatterns,
-            *tictactoe.routing.websocket_urlpatterns
+            *tictactoe.routing.websocket_urlpatterns,
+            *chess_online.routing.websocket_urlpatterns
         ])
     )
 })

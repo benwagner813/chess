@@ -1,0 +1,148 @@
+.ChessTitle {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: underline;
+    text-decoration-color: #d66c45;
+    text-decoration-thickness: 3px;
+    text-underline-offset: 3px;
+    margin-bottom: 5px;
+}
+
+.ChessContainer {
+    display: flex;
+    position: relative;
+}
+
+.ChessBoardDiv {
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    border-style: solid;
+    border-color: rgba(255, 255, 255, .30);
+    position: relative;
+}
+
+.ChessColumn {
+    display: flex;
+    flex-direction: column;
+}
+
+.ChessBoxGrey {
+    background-color: rgba(255, 255, 255, .15);
+    padding: 0px;
+    width: 120px;
+    height: 120px;
+    text-align: center;
+}
+
+.ChessBoxOrange {
+    background-color: rgb(214, 108, 69, .70);
+    padding: 0px;
+    width: 120px;
+    height: 120px;
+    text-align: center;
+}
+
+.flipButton {
+    text-decoration: none;
+    font-size: 25px;
+    width: 200px;
+    padding: 5px;
+    background: none;
+    border: none;
+    box-shadow: inset 0px 0px 0px 2px rgb(50, 168, 82);
+    border-radius: 7px;
+}
+
+.flipButton:hover {
+    cursor: pointer;
+}
+
+.interiorContainer {
+    margin: auto;
+}
+
+.YaxisLabel1 {
+    position: absolute;
+    transform: translateX(-30px) translateY(47.5px);
+}
+
+.YaxisLabel2 {
+    position: absolute;
+    transform: translateX(-30px) translateY(167.5px);
+}
+
+.YaxisLabel3 {
+    position: absolute;
+    transform: translateX(-30px) translateY(287.5px);
+}
+
+.YaxisLabel4 {
+    position: absolute;
+    transform: translateX(-30px) translateY(407.5px);
+}
+
+.YaxisLabel5 {
+    position: absolute;
+    transform: translateX(-30px) translateY(527.5px);
+}
+
+.YaxisLabel6 {
+    position: absolute;
+    transform: translateX(-30px) translateY(647.5px);
+}
+
+.YaxisLabel7 {
+    position: absolute;
+    transform: translateX(-30px) translateY(767.5px);
+}
+
+.YaxisLabel8 {
+    position: absolute;
+    transform: translateX(-30px) translateY(887.5px);
+}
+
+.XaxisLabel1 {
+    position: absolute;
+    transform: translateX(58.78px) translateY(15px);
+}
+
+.XaxisLabel2 {
+    position: absolute;
+    transform: translateX(178.78px) translateY(15px);
+}
+
+.XaxisLabel3 {
+    position: absolute;
+    transform: translateX(298.78px) translateY(15px);
+}
+
+.XaxisLabel4 {
+    position: absolute;
+    transform: translateX(418.78px) translateY(15px);
+}
+
+.XaxisLabel5 {
+    position: absolute;
+    transform: translateX(538.78px) translateY(15px);
+}
+
+.XaxisLabel6 {
+    position: absolute;
+    transform: translateX(658.78px) translateY(15px);
+}
+
+.XaxisLabel7 {
+    position: absolute;
+    transform: translateX(778.78px) translateY(15px);
+}
+
+.XaxisLabel8 {
+    position: absolute;
+    transform: translateX(898.78px) translateY(15px);
+}
+
+.axisLabel {
+    margin: auto;
+    font-size: 20px;
+}

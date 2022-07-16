@@ -1,6 +1,7 @@
 @import "navstyles.css";
 @import "chat.css";
 @import "tictactoe.css";
+@import "chess.css";
 
 * {
     font-family: 'open sans',arial,sans-serif;
