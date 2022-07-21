@@ -1,5 +1,34 @@
 //creates the websocket and receives messages
 const gameId = JSON.parse(document.getElementById('game-id').textContent);
+const epd = JSON.parse(document.getElementById('epd').textContent);
+const available_moves = JSON.parse(document.getElementById('available_moves').textContent);
+
+const squareMap = {
+    "h" : "7",
+    "g" : "6",
+    "f" : "5",
+    "e" : "4",
+    "d" : "3",
+    "c" : "2",
+    "b" : "1",
+    "a" : "0",
+    "8" : "0",
+    "7" : "1",
+    "6" : "2",
+    "5" : "3",
+    "4" : "4",
+    "3" : "5",
+    "2" : "6",
+    "1" : "7",
+}
+
+console.log(available_moves)
+document.querySelector(".test").innerHTML = epd
+
+//place pieces on board according to epd
+let epdArray = epd.split(' ')
+let epdBoard = epdArray[0]
+console.log(epdBoard)
 
 const ws = new WebSocket('ws://'
                         + window.location.host
@@ -14,7 +43,7 @@ let perspective = 1;
 createBoard();
 swapLabels();
 
-let whiteKing = `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="-3 -3 56 56" height="100%" width="100%">
+let whiteKing = `<svg class="piece" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="-3 -3 56 56" height="100%" width="100%">
 <title>King</title>
 <description>
 Western white-side King
@@ -31,7 +60,7 @@ Western white-side King
 </g>
                     </svg>`
 
-let whiteQueen = `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="-3 -3 56 56" height="100%" width="100%">
+let whiteQueen = `<svg class="piece" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="-3 -3 56 56" height="100%" width="100%">
                     <title>Queen</title>
                     <description>
                     Western white-side Queen
@@ -50,7 +79,7 @@ let whiteQueen = `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox=
                     </g>
                     </svg>`
                     
-let whiteBishop = `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="-3 -3 56 56" height="100%" width="100%">
+let whiteBishop = `<svg class="piece" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="-3 -3 56 56" height="100%" width="100%">
                     <title>Bishop</title>
                     <description>
                     Western white-side Bishop
@@ -67,7 +96,7 @@ let whiteBishop = `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox
                     </g>
                     </svg>`
                     
-let whiteKnight = `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="-3 -3 56 56" height="100%" width="100%">
+let whiteKnight = `<svg class="piece" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="-3 -3 56 56" height="100%" width="100%">
                     <title>Knight</title>
                     <description>
                     Western white-side Knight
@@ -76,12 +105,12 @@ let whiteKnight = `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox
                     <g stroke-linejoin="round" fill-rule="evenodd" transform="matrix(1.4912192,0,0,1.4925373,-7.8284143,-9.3283579)" stroke="#121212" stroke-linecap="round" stroke-dasharray="none" stroke-miterlimit="4">
                     <path d="m22,10c10.5,1,16.5,8,16,29h-23c0-9,10-6.5,8-21" stroke-width="1.5" fill="#ffffffe6"/>
                     <path d="m24,18c0.38,2.91-5.55,7.37-8,9-3,2-2.82,4.34-5,4-1.042-0.94,1.41-3.04,0-3-1,0,0.19,1.23-1,2-1,0-4.003,1-4-4,0-2,6-12,6-12s1.89-1.9,2-3.5c-0.73-0.994-0.5-2-0.5-3,1-1,3,2.5,3,2.5h2s0.78-1.992,2.5-3c1,0,1,3,1,3" stroke-width="1.5" fill="#ffffffe6"/>
-                    <path d="m9.5,25.5a0.5,0.5,0,0,1,-1,0,0.5,0.5,0,1,1,1,0z" stroke-width="1.5" fill="#000"/>
-                    <path d="m14.933,15.75a0.49999,1.5,30.001,0,1,-0.866,-0.5,0.49999,1.5,30.001,0,1,0.866,0.5z" stroke-width="1.49996698" fill="#000"/>
+                    <path d="m9.5,25.5a0.5,0.5,0,0,1,-1,0,0.5,0.5,0,1,1,1,0z" stroke-width="1.5" fill="#ffffffe6"/>
+                    <path d="m14.933,15.75a0.49999,1.5,30.001,0,1,-0.866,-0.5,0.49999,1.5,30.001,0,1,0.866,0.5z" stroke-width="1.49996698" fill="#ffffffe6"/>
                     </g>
                     </svg>`
                     
-let whiteRook = `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="-3 -3 56 56" height="100%" width="100%">
+let whiteRook = `<svg class="piece" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="-3 -3 56 56" height="100%" width="100%">
                     <title>Rook</title>
                     <description>
                     Western white-side Rook
@@ -98,7 +127,7 @@ let whiteRook = `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="
                     </g>
                     </svg>`
                     
-let whitePawn = `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="-3 -3 56 56" height="100%" width="100%">
+let whitePawn = `<svg class="piece" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="-3 -3 56 56" height="100%" width="100%">
 <title>Pawn</title>
                     <description>
                     Western white-side Pawn
@@ -109,7 +138,7 @@ let whitePawn = `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="
                     </g>
                     </svg>`
 
-let blackKing = `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="-3 -3 56 56" height="100%" width="100%">
+let blackKing = `<svg class="piece" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="-3 -3 56 56" height="100%" width="100%">
                     <title>King</title>
                     <description>
                     Western black-side King
@@ -125,7 +154,7 @@ let blackKing = `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="
                     </g>
                     </svg>`
                     
-let blackQueen = `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="-3 -3 56 56" height="100%" width="100%">
+let blackQueen = `<svg class="piece" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="-3 -3 56 56" height="100%" width="100%">
                     <title>Queen</title>
                     <description>
                     Western black-side Queen
@@ -150,7 +179,7 @@ let blackQueen = `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox=
                     </g>
                     </svg>`
                     
-let blackBishop = `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="-3 -3 56 56" height="100%" width="100%">
+let blackBishop = `<svg class="piece" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="-3 -3 56 56" height="100%" width="100%">
 <title>Bishop</title>
 <description>
 Western black-side Bishop
@@ -167,7 +196,7 @@ Western black-side Bishop
                     </g>
                     </svg>`
 
-let blackKnight = `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="-3 -3 56 56" height="100%" width="100%">
+let blackKnight = `<svg class="piece" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="-3 -3 56 56" height="100%" width="100%">
                     <title>Knight</title>
                     <description>
                     Western black-side Knight
@@ -182,7 +211,7 @@ let blackKnight = `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox
                     </g>
                     </svg>`
                     
-let blackRook = `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="-3 -3 56 56" height="100%" width="100%">
+let blackRook = `<svg class="piece" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="-3 -3 56 56" height="100%" width="100%">
                     <title>Rook</title>
                     <description>
                     Western black-side Rook
@@ -203,7 +232,7 @@ let blackRook = `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="
                     </g>
                     </svg>`
                     
-let blackPawn = `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="-3 -3 56 56" height="100%" width="100%">
+let blackPawn = `<svg class="piece" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="-3 -3 56 56" height="100%" width="100%">
                     <title>Pawn</title>
                     <description>
                     Western black-side Pawn
@@ -214,45 +243,23 @@ let blackPawn = `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="
                     </g>
                     </svg>`
 
-loadPieces();
-function loadPieces(){
+const pieces = {
+    'r' : blackRook,
+    'n' : blackKnight,
+    'b' : blackBishop,
+    'q' : blackQueen,
+    'k' : blackKing,
+    'p' : blackPawn,
+    'R' : whiteRook,
+    'N' : whiteKnight,
+    'B' : whiteBishop,
+    'Q' : whiteQueen,
+    'K' : whiteKing,
+    'P' : whitePawn,
+} 
 
-    //white pieces
-    document.getElementById('74').innerHTML = whiteKing
-    document.getElementById('73').innerHTML = whiteQueen
-    document.getElementById('72').innerHTML = whiteBishop
-    document.getElementById('75').innerHTML = whiteBishop
-    document.getElementById('71').innerHTML = whiteKnight
-    document.getElementById('76').innerHTML = whiteKnight
-    document.getElementById('70').innerHTML = whiteRook
-    document.getElementById('77').innerHTML = whiteRook
-    document.getElementById('60').innerHTML = whitePawn
-    document.getElementById('61').innerHTML = whitePawn
-    document.getElementById('62').innerHTML = whitePawn
-    document.getElementById('63').innerHTML = whitePawn
-    document.getElementById('64').innerHTML = whitePawn
-    document.getElementById('65').innerHTML = whitePawn
-    document.getElementById('66').innerHTML = whitePawn
-    document.getElementById('67').innerHTML = whitePawn
-    
-    //black pieces
-    document.getElementById('04').innerHTML = blackKing
-    document.getElementById('03').innerHTML = blackQueen
-    document.getElementById('02').innerHTML = blackBishop
-    document.getElementById('05').innerHTML = blackBishop
-    document.getElementById('01').innerHTML = blackKnight
-    document.getElementById('06').innerHTML = blackKnight
-    document.getElementById('00').innerHTML = blackRook
-    document.getElementById('07').innerHTML = blackRook
-    document.getElementById('10').innerHTML = blackPawn
-    document.getElementById('11').innerHTML = blackPawn
-    document.getElementById('12').innerHTML = blackPawn
-    document.getElementById('13').innerHTML = blackPawn
-    document.getElementById('14').innerHTML = blackPawn
-    document.getElementById('15').innerHTML = blackPawn
-    document.getElementById('16').innerHTML = blackPawn
-    document.getElementById('17').innerHTML = blackPawn
-}
+loadPiecesEPD()
+
 function flipBoard(){
     if(perspective == 1){
         perspective = 2
@@ -260,7 +267,7 @@ function flipBoard(){
         perspective = 1
     }
     createBoard();
-    loadPieces();
+    loadPiecesEPD();
     swapLabels();
 } 
     
@@ -339,6 +346,32 @@ function swapLabels(){
     }
 }
 
+function loadPiecesEPD() { //1A = 70 (i = 7, j = 0) i is number, j is letter
+
+    let rowsEPD = epdBoard.split('/')
+    let x = 0
+
+    for (let i = rowsEPD.length-1; i >= 0; i--) { //for each row
+
+        for (let j = 0; j < rowsEPD[i].length; j++) { //for each item in the row
+
+            curRow = rowsEPD[i]
+            tempChar = curRow[j]
+            if (!isNaN(tempChar)) { //is a number
+                x = x + (parseInt(tempChar) - 1)
+            }
+            else { //it's a letter (piece)
+                
+                document.getElementById(i + "" + x).innerHTML = pieces[tempChar]
+            }
+
+            x++
+        }
+        x = 0
+    }
+    addAvailMoves()
+}
+
 ws.onmessage = function(e){
     const data = JSON.parse(e.data);
     if(data.color == 1){
@@ -348,4 +381,32 @@ ws.onmessage = function(e){
         document.querySelector(".player2").innerHTML = ("Black - " + data.username);
         flipBoard()//if the player is playing black flip the board to their perspective
     }
+
+    if (data.move) {//if there is a move in the message
+        from2 = squareMap[data.move[0]]
+        from1 = squareMap[data.move[1]]
+
+        to2 = squareMap[data.move[2]]
+        to1 = squareMap[data.move[3]]
+
+        //place svg in "to" square
+        document.getElementById(to1 + to2).innerHTML = document.getElementById(from1 + from2).innerHTML
+
+        //remove svg from "from" square
+        document.getElementById(from1 + from2).innerHTML = ""
+    }
 }
+
+function addAvailMoves() {
+    
+    for (const key in available_moves) {
+        selectedPieceID = squareMap[key[1]] + squareMap[key[0]]
+        selectedPiece = document.getElementById(selectedPieceID).firstElementChild
+        selectedPiece.addEventListener("click", clickPiece())
+    }
+}
+
+function clickPiece(e) {
+    console.log("THE PIECE HAS BEEN CLICKED!")
+    console.log(e)
+} 

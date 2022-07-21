@@ -9,7 +9,8 @@
 
 <body>
     <div class="ChessTitleDiv">
-        <h1 class="ChessTitle">Game</h1>
+        <h1 class="ChessTitle" id="test">Game</h1>
+        <p class="test"></p>
     </div>
 
     <div class="ChessContainer">
@@ -86,6 +87,8 @@
 </body>
 
 {{ id|json_script:"game-id" }}
+{{ epd|json_script:"epd" }}
+{{ available_moves|json_script:"available_moves" }}
 <script src="{% static 'account/chess.js' %}"></script>
 
 {% endblock %}

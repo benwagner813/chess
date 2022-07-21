@@ -65,7 +65,7 @@ class ChessConsumer(AsyncWebsocketConsumer):
             player_group,
             {
                 'type' : 'player_move',
-                'move' : move,
+                'move' : text_data_json['move'],
                 'available_move_list' : available_move_list
             }
         )
