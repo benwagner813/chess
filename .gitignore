@@ -4,3 +4,7 @@ account/__pycache__/**
 CoolChess/__pycache__/**
 account/migrations/__pycache__/**
 chat/migrations/__pycache__/**
+tictactoe/__pycache__/**
+chess_online/__pycache__/**
+chess_online/migrations/__pycache__/**
+tictactoe/migrations/__pycache__/**

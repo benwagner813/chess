@@ -402,11 +402,11 @@ function addAvailMoves() {
     for (const key in available_moves) {
         selectedPieceID = squareMap[key[1]] + squareMap[key[0]]
         selectedPiece = document.getElementById(selectedPieceID).firstElementChild
-        selectedPiece.addEventListener("click", clickPiece())
+        selectedPiece.addEventListener("click", clickPiece)
     }
 }
 
-function clickPiece(e) {
-    console.log("THE PIECE HAS BEEN CLICKED!")
-    console.log(e)
+function clickPiece(event) {
+    console.log(event.target.parentElement)
+    
 } 

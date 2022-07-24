@@ -524,13 +524,12 @@ epd = board.epd(hmvc=board.halfmove_clock, fmvn=board.fullmove_number, pv=pv)
 move = chess.Move.from_uci('h2h4')
 san = board.san(move)
 board.push(move)
-epd = board.epd(hmvc=board.halfmove_clock, fmvn=board.fullmove_number, pv=pv + move)
 print(epd)
 board2 = chess.Board()
 board2.set_epd(epd)
 print(board2.fullmove_number)
 movelist = []
-moves = board.legal_moves
+moves = board2.legal_moves
 for move in moves:
     movelist.append(move.uci())
 print(movelist)

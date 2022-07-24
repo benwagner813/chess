@@ -60,13 +60,27 @@ class ChessConsumer(AsyncWebsocketConsumer):
         available_move_list = []
         for move in self.chess.legal_moves: #add the uci strings of the legal moves to a list
             available_move_list.append(move.uci())
+       
+        new_avail_moves = {}
+        key = available_move_list[0][:2] #key starts off equaling first 2 chars of first value
+        for string in available_move_list: #for each item in the original available move list
+            if key in string:
+                if key in new_avail_moves.keys(): #has key already
+                    new_avail_moves[key].append(string[2:])
+                else: #doesn't have the key already
+                    new_avail_moves[key] = []
+                    new_avail_moves[key].append(string[2:])
+            else: #no longer any more of this key
+                key = string[:2]
+                new_avail_moves[key] = []
+                new_avail_moves[key].append(string[2:])
         
         await self.channel_layer.group_send(
             player_group,
             {
                 'type' : 'player_move',
                 'move' : text_data_json['move'],
-                'available_move_list' : available_move_list
+                'available_move_list' : new_avail_moves
             }
         )
 
