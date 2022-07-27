@@ -1,7 +1,8 @@
 //creates the websocket and receives messages
 const gameId = JSON.parse(document.getElementById('game-id').textContent);
 const epd = JSON.parse(document.getElementById('epd').textContent);
-const available_moves = JSON.parse(document.getElementById('available_moves').textContent);
+var available_moves = JSON.parse(document.getElementById('available_moves').textContent);
+displayedMoves = []
 
 const squareMap = {
     "h" : "7",
@@ -20,6 +21,26 @@ const squareMap = {
     "3" : "5",
     "2" : "6",
     "1" : "7",
+}
+const letterMap = {
+    "7" : "h",
+    "6" : "g",
+    "5" : "f",
+    "4" : "e",
+    "3" : "d",
+    "2" : "c",
+    "1" : "b",
+    "0" : "a",
+}
+const numberMap = {
+    "7" : "1",
+    "6" : "2",
+    "5" : "3",
+    "4" : "4",
+    "3" : "5",
+    "2" : "6",
+    "1" : "7",
+    "0" : "8",
 }
 
 console.log(available_moves)
@@ -243,6 +264,16 @@ let blackPawn = `<svg class="piece" xmlns="http://www.w3.org/2000/svg" version="
                     </g>
                     </svg>`
 
+let clickable = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 9 9" width="25%" height="100%">
+                    <circle cx="4.5" cy="4.5" r="3.5" fill="rgb(255,255,255,.2)"/>
+                    </svg>`
+
+var clickable2 = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+clickable2.setAttribute('width', '25%');
+clickable2.setAttribute('height', '100%');
+clickable2.setAttribute('viewBox', '0 0 9 9')
+clickable2.innerHTML = `<circle cx="4.5" cy="4.5" r="3.5" fill="rgb(255,255,255,.2)"/>`
+
 const pieces = {
     'r' : blackRook,
     'n' : blackKnight,
@@ -381,8 +412,12 @@ ws.onmessage = function(e){
         document.querySelector(".player2").innerHTML = ("Black - " + data.username);
         flipBoard()//if the player is playing black flip the board to their perspective
     }
-
+    if(data.available_moves){
+        available_moves = data.available_moves
+        addAvailMoves()
+    }
     if (data.move) {//if there is a move in the message
+        
         from2 = squareMap[data.move[0]]
         from1 = squareMap[data.move[1]]
 
@@ -398,7 +433,7 @@ ws.onmessage = function(e){
 }
 
 function addAvailMoves() {
-    
+
     for (const key in available_moves) {
         selectedPieceID = squareMap[key[1]] + squareMap[key[0]]
         selectedPiece = document.getElementById(selectedPieceID).firstElementChild
@@ -407,6 +442,24 @@ function addAvailMoves() {
 }
 
 function clickPiece(event) {
-    console.log(event.target.parentElement)
     
-} 
+    startingSquare = this.parentElement.id
+    moveArr = available_moves[letterMap[startingSquare[1]] + "" + numberMap[startingSquare[0]]]
+    console.log(moveArr)
+    let num = displayedMoves.length
+    if(num > 0){
+        for (var i = 0; i < num; i++){
+            square = document.getElementById(displayedMoves.pop())
+            square.removeChild(square.firstElementChild)
+        }
+    }
+        
+    for (const toSquare in moveArr){
+        
+        toSquareId = squareMap[moveArr[toSquare][1]] + squareMap[moveArr[toSquare][0]]
+        displayedMoves.push(toSquareId)
+        document.getElementById(toSquareId).appendChild(clickable2.cloneNode(true))
+        
+    }
+}
+

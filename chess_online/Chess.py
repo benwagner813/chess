@@ -519,17 +519,22 @@ board.push_san('e4')
 board.push_san('d5')
 board.push_san('ed5')
 board.push_san('e5')
-pv = chess.Board().variation_san(board.move_stack)
-epd = board.epd(hmvc=board.halfmove_clock, fmvn=board.fullmove_number, pv=pv)
-move = chess.Move.from_uci('h2h4')
-san = board.san(move)
-board.push(move)
-print(epd)
-board2 = chess.Board()
-board2.set_epd(epd)
-print(board2.fullmove_number)
-movelist = []
-moves = board2.legal_moves
-for move in moves:
-    movelist.append(move.uci())
-print(movelist)
+
+count =0
+available_move_list = []
+for move in board.legal_moves: #add the uci strings of the legal moves to a list
+    count+=1
+    available_move_list.append(move.uci())
+
+new_avail_moves = {}
+
+for string in available_move_list: #for each item in the original available move list
+    key = string[:2]
+    if key in string:
+        if key in new_avail_moves.keys(): #has key already
+            new_avail_moves[key].append(string[2:])
+        else: #doesn't have the key already
+            new_avail_moves[key] = []
+            new_avail_moves[key].append(string[2:])
+
+print(new_avail_moves)
